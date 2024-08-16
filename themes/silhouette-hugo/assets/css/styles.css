@@ -1,18 +1,18 @@
 body {
-    background-color: #f0f2f5;
-    padding-top: 50px;
+    background-color: #fafafa !important;
+    padding-top: 42px;
+
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     font-family: 'Inter', sans-serif;
-    color: #333;
-    margin: 0;
+
 }
 
 .main {
     display: flex;
     flex: 1;
-    margin: 30px;
+    margin: 10px;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -20,16 +20,18 @@ h1, h2, h3, h4, h5, h6,
     word-wrap: break-word;
     font-family: 'Poppins', sans-serif;
     color: #1a1a1a;
-    
+    margin-top: 0;
 }
 
 hr {
-    margin-bottom: 20px 0;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
 }
+
 
 pre {
     margin: 0 0 20px;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f7f9fc;
@@ -39,9 +41,8 @@ pre {
 
 a,
 .text-primary {
-    color: #0056b3;
+    color: #337ab7;
     word-wrap: break-word;
-    transition: color 0.3s ease-in-out;
 }
 
 .top-nav .container {
@@ -52,7 +53,7 @@ a,
 
 .navbar-brand {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.rem;
+    font-size: 1.6rem;
     padding: 0;
 }
 
@@ -80,86 +81,65 @@ a.card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
-
-
 .top-nav,
 footer,
 .sidebar {
     flex-shrink: 0;
     background-color: #0056b3;
-
 }
 
 .sidebar .badge-secondary {
-    color: #847b79;
-    background-color: #eeedea;
+    color: #333;
+    background-color: #e0e7ff;
 }
 
 footer {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    text-align: justify;
-    font-size: 0.8rem;
-    padding: 20px 20px;
-    margin-left: 0px;
-
+    background-color: #27343c;
+    color: #fff3e4;
+    font-size: .8rem;
+    padding: 30px 30px;
 }
-
 
 footer h5 {
     font-size: 1rem;
     font-family: inherit;
-    margin-left: 10px;
-    text-align: left;
-
-
+    margin-top: 10px;
 }
 
 footer h5,
 footer a {
-    color: #ffdd57 !important;
+    color: #e3d096 !important;
 }
-
 footer .icons a {
-    font-size: 1rem;
+    font-size: 1.5rem;
     margin: 0 12px;
     transition: color 0.3s ease-in-out;
 }
 
-footer .icons a:hover {
-    color: #ffdd57;
-}
-
 footer hr {
-    border-top: 1px solid #555;
-    margin: 10px 0;
+    border-top: 1px dotted #555;
+    margin: 30px 0;
 }
 
 .main-content {
     flex: 2 0 auto;
     font-size: 1rem;
-    margin-left: 20px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .main-content h1 {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     margin-bottom: 20px;
 }
 
 .post h1,
 .recent-posts h2,
 .sidebar h2 {
-    padding-bottom: 5px;
-    border-bottom: 1px solid #0056b3;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2c2a24;
 }
 
 .recent-posts .post {
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
 }
 
 .recent-posts a.title,
@@ -169,22 +149,36 @@ footer hr {
     transition: color 0.3s ease-in-out;
 }
 
-
 .top-nav {
     color: #fff;
     border-color: transparent;
     background-color: #0056b3;
 }
+
+
 .share-icons {
-    font-size: 1.2em;
+    font-size: 1.5em;
 }
 
 .share-icons a {
-    color: #eeedea;
+    color: #e6f9c8;
 }
 
 .share-icons .fa-inverse {
-    color: #847b79;
+    color: #023d4f;
+}
+
+.feature-image,
+.feature-banner {
+    background: no-repeat center center;
+    background-size: cover;
+    display: flex;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+
+    -ms-flex-pack: center!important;
+    justify-content: center!important;
 }
 
 .feature-image,
@@ -205,47 +199,56 @@ footer hr {
     max-width: 760px;
     margin-right: auto;
     margin-left: auto;
-    color: #fff;
+    color: #c23434;
     padding: 20px;
-    border-radius: 8px;
+    /* Removed background color and border */
+    /* background-color: rgba(0, 0, 0, 0.6); */
+    /* border-radius: 8px; */
 }
 
 .white-shadow-text {
-    text-shadow: 0 0 8px rgba(245, 218, 218, 0.6);
-    color: #f7f7f7;
+    /* Enhanced text glow effect */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    color: #350381;
+    font-weight: bold;
 }
 
 .feature-image-text h1 {
     font-size: 2.8rem;
+    /* Add glow effect to the heading */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6), 0 0 45px rgba(255, 255, 255, 0.4);
 }
 
 .feature-image-text .intro-description {
     font-size: 1.6rem;
+    /* Add glow effect to the intro description */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6), 0 0 45px rgba(255, 255, 255, 0.4);
 }
+
 
 .sidebar {
     background-color: #f8f9fa;
-    border-left: 1px solid #ddd;
+    border-left: 1px solid #4b0909;
     padding: 20px;
     flex: 0 0 25rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
+    box-shadow: 0 5px 19px rgba(192, 222, 25, 0.05);
+    border-radius: 0px;
 }
 
 .sidebar a:hover {
-    color: #23527c;
-    background-color: #eee;
+    color: #0056b3;
+    background-color: #9699f6;
 }
-
 .btn-outline-secondary {
     color: #333;
-    background-color: #fff;
+    background-color: #ffffff;
     border-color: #ccc;
     transition: background-color 0.3s ease-in-out;
 }
+
 a.btn-outline-secondary:hover {
     color: #333;
-    background-color: #e6e6e6;
+    background-color: #8c1414;
     border-color: #adadad;
 }
 
@@ -256,10 +259,11 @@ blockquote {
     padding: 1.2em 30px;
     border-left: 8px solid #0056b3;
     position: relative;
-    background: #f7f9fc;
+    background: #0d3571;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
+
 blockquote::before {
     font-family: Arial;
     content: "\201C";
@@ -269,6 +273,7 @@ blockquote::before {
     left: 10px;
     top: -10px;
 }
+
 /* Bio Section Styling */
 .bio-section {
     text-align: center;
@@ -293,7 +298,7 @@ blockquote::before {
     text-align: left;
     font-size: 1.1rem;
     margin-top: 10px;
-    color: #333;
+    color: #333333;
     font-family: 'Inter', sans-serif;
 }
 
