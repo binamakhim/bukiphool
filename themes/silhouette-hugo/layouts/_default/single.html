@@ -1,0 +1,18 @@
+{{ define "head" }}
+
+{{ end }}
+{{ define "title" }}
+  {{ .Title }} | {{ .Site.Title }}
+{{ end }}
+{{ define "main" }}
+
+<article class="container mt-4 post">
+    <h1>{{ .Title }}</h1>
+    <div class="bio-section">
+      <img src="{{ "https://images2.imgbox.com/9c/5f/gRW3JLKk_o.jpg" }}" alt="Your Photo" class="profile-photo">
+      <p>{{ .Content }}</p>  
+    </div>
+  
+    
+</article>
+{{ end }}
