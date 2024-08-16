@@ -1,7 +1,7 @@
 ---
 title: "Butterfly at Godawari"
 date: 2024-08-16T13:36:14+05:45
-draft: true
+draft: false
 categories:
   - blogs
 tags:
@@ -33,3 +33,30 @@ I have visited Godavari several times, and every time, I am captivated by the be
 - Common Mormon (Papilio polytes)
 
 If you love butterflies, I strongly recommend you visit the Godavari Botanical Garden. It's a place where you can lose yourself in the beauty of nature and forget about the worries of the world.
+
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/20230126_090712.jpg?w=388)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910130547.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910125525.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910125452.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910124600.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910123437.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910121621.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910114644.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910114207.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910113937.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910113657.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910130327.jpg?w=1024)
+---
+![](https://1.gravatar.com/avatar/a774ded4e924348d4c2f530ad871424a08c5f0abfaba0fd891069d6333bfcd6f?s=80&d=identicon&r=G)
+---

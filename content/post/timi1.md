@@ -1,13 +1,14 @@
 ---
-title: "Timi"
+title: "तिमि…"
 date: 2024-08-16T12:36:40+05:45
 draft: false
 categories:
   - blogs
+  - poem
 tags:
   - theflowerofmountain
 ---
-**तिमि…..**
+**..**
 
 मैले धेरै कविताहरु  
 मनमा नै लेखेँ  
@@ -27,4 +28,10 @@ tags:
 मनबाटै  
 सधैँ सधैँभरिलाई!!!
 
-#theflowerofmountain
+
+
+
+{{< image src="https://biochemicalmind.wordpress.com/wp-content/uploads/2023/04/img20230322092121.jpg" alt="Sample Image" width="500px" height="500px" >}}
+
+
+

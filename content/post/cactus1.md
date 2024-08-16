@@ -1,6 +1,6 @@
 ---
-title: "Cactus"
-date: 2024-08-16T12:36:10+05:45
+title: "रातमा फूल्ने क्याक्टस"
+date: 2023-08-16T12:36:10+05:45
 draft: false
 categories:
   - blogs
@@ -8,7 +8,7 @@ tags:
   - theflowerofmountain
 ---
 यो प्लान्ट क्याक्टस प्रजातिमा पर्छ। बर्षमा एकचोटी एकरातको लागि मात्र फूल्छ। रातमा फूल्छ अनि बिहान ओइलाउछ। साँझदेखि फक्रीन थाल्छ अनि मध्यरातसम्म पुरै फक्रीन्छ र बिहान घाम छिप्पिदै गएसँगै ओइलाउदै जान्छ। <!--more--> यसको बास्ना एकदम मीठो गम्किन्छ। हाम्रो घर अगाडि बर्षौदेखि यसको बोट हुर्किदै थियो, सानो छदा म आफैले रोपेकी हुँ। यद्यपि यसको फूल हेर्ने मौका मैले पाएको थिइनँ, कारण चाहिँ यो फूल्ने सिजनमा म घरमा हुन्नथेँ। यो फूल चैत अन्तिम नत्र बैशाखको सुरुवाततिरबाट फूल्न थाल्छ। कोपिला लागेपछी पनि निकै समय लाग्छ फूल्नलाई। यसलाई हुर्कन त्यस्तो बिशेष स्याहारसंभार केही चाहिदैन।  
-![](/images/cactus/1.webp)  
+
 
 पोहोरसाल आमालाई मैले यसको फूल हेर्ने इच्छा भएको र कैले फूल्छ भनि पर्खिरहेको कुरा सुनाउदै थिएँ। यत्तिकैमा गाउको बोजु आइपुग्नु भो। बोजुको भनाइअनुसार चै यो क्याक्टसले घरमा आइपर्ने दु:ख, बिमार, संकट देख्छ रे! घरमा कोहि बिरामी हुनेछ या केही अनिष्ट हुनेछ भने यसको बोट कच्र्याककुच्रुक्क पर्छ रे। अनि घरमा सुख, शान्ति, प्रगति हुनेछ भने यसको बोट सर्लक्क परेर हुर्कन्छ रे! यसको बोट घरको धुरी नाघेर अग्लियो भने त्यो एकदम राम्रो संकेत हो रे!  
 
@@ -16,7 +16,32 @@ tags:
 
 फेरि बोजुले सुनाउनुभो यसको काडाको राज। यसको काडा एकदम धेरै हुन्छ, बिझ्यो भने काडाको टुप्पामात्र बिझ्छ, पुरै काडा बिझ्दैन। अनि काडा चै घाउ पाकेर निस्के मात्र हो। एकएक गरेर निकाल्न असम्भव जस्तै हुन्छ। काकिले भन्नुभाको मुन्धुम चै यसको काडा बिझ्यो भने सुनको सियोले मात्र निकाल्न सकिन्छ भनेर उहिलेको बुढापाकाहरुले भन्नुहुन्थ्यो रे!   
 
-![](/images/cactus/2.jpg)    
-
-## Check for Youtube EMBED
-{{ <youtube K_XcqhPtmzo >}}
+ 
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/20230127_041715.jpg?w=461)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-18-01-01-87_1c337646f29875672b5a61192b9010f9.jpg?w=720)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-18-00-40-00_1c337646f29875672b5a61192b9010f9.jpg?w=720)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-18-00-32-47_1c337646f29875672b5a61192b9010f9.jpg?w=720)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415183342.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/image_editor_output_image835167625-1674872145719.jpg?w=450)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-59-27-48_1c337646f29875672b5a61192b9010f9.jpg?w=720)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-59-49-67_1c337646f29875672b5a61192b9010f9.jpg?w=720)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220416194929.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415214801.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415214723.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415214525.jpg?w=461)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415214839.jpg?w=1024)
+---
+![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-18-00-17-74_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)
+---

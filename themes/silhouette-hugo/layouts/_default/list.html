@@ -90,7 +90,7 @@
       <!-- Last 3 Posts Section -->
       <section class="last-posts-section mt-5">
           <h3 class="text-center">Check My New Posts</h3>
-          {{ $recentPosts := first 2 (where site.RegularPages "Params.hidden" "ne" true) }}
+          {{ $recentPosts := first 4 (where site.RegularPages "Params.hidden" "ne" true) }}
           {{ range $recentPosts }}
           <article class="post">
             <a class="title" href="{{ .Permalink }}"><h2>{{ .Title }}</h2></a>
@@ -108,7 +108,7 @@
       {{ else }}
       {{ $pages := .Pages }}
       {{ $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
-      {{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) 5}}
+      {{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) 8}}
       {{ range $paginator.Pages }}
       <article class="post">
         <a class="title" href="{{ .Permalink }}">
