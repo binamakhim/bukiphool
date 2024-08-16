@@ -1,0 +1,20 @@
+baseurl = "https://yogeshsn.com.np"
+title = "Bukiphool"
+author = "Bina Makhim"
+canonifyurls = true
+paginate = 3
+theme = "silhouette-hugo"
+
+pygmentsUseClasses=true
+
+
+
+[params]
+author = "बुकी फूल"
+introDescription = "THE FLOWER OF MOUNTAIN"
+contentSharing = "I believe this version of me!"
+
+[social]
+instagram = "biochemicalmind"
+linkedin = "binaya-devi-makhim-77301031a"
+twitter = "biochemicalmind"

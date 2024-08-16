@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Untagged on Bukiphool</title>
+    <link>http://localhost:1313/tags/untagged/</link>
+    <description>Recent content in Untagged on Bukiphool</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Aug 2024 09:37:45 +0545</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Myfirstpost</title>
+      <link>http://localhost:1313/post/myfirstpost/</link>
+      <pubDate>Sat, 17 Aug 2024 09:37:45 +0545</pubDate>
+      <guid>http://localhost:1313/post/myfirstpost/</guid>
+      <description>बुकि फूल&#xA;Bukiphool in wild&#xA;Rose in garden&#xA;Lotus in pond&#xA;and Cactus in desert!&#xA;She is not only a Wildflower or&#xA;just a Homegrown flower&amp;hellip;&#xA;She is more than that!&#xA;She is more than&#xA;you know…&#xA;Yes, SHE is!&#xA;#theflowerofmountain</description>
+    </item>
+  </channel>
+</rss>
