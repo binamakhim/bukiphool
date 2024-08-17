@@ -79,6 +79,7 @@
 {{ define "main" }}
   <div class="container mt-4 mb-4 recent-posts">
       {{ if .IsHome }}
+      
      <!-- About Me Section -->
 
      <section class="about-me-section text-center">
@@ -109,7 +110,8 @@
           </article>
           
           {{ end }}
-          {{ template "_internal/pagination.html" . }}
+          <a href="/post" class="btn btn-primary">CHECK OUT MORE!</a>
+
       </section>
 
       {{ else }}
