@@ -8,6 +8,7 @@ categories:
 tags:
   - theflowerofmountain
 ---
+<!--more-->
 ### एउटा समय थियो…
 
 एउटा पुरानो  

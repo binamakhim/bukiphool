@@ -8,11 +8,10 @@ categories:
 tags:
   - theflowerofmountain
 ---
-### there….under my pillow…
 
 there….  
 just under my pillow  
-where,  
+where,  <!--more-->
 once used to be  
 My achievements,  
 my dreams,  

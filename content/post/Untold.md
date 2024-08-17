@@ -8,13 +8,12 @@ categories:
 tags:
   - theflowerofmountain
 ---
-**untold stories**  
 
 
 के के हारेँ मायामा….  
 म आफै  
 एउटा सिंगो  
-प्रमाण हुँ,  
+प्रमाण हुँ, <!--more--> 
 मायामा के के  
 हारिन्छ भन्ने!
 

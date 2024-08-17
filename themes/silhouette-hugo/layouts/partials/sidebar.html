@@ -1,19 +1,60 @@
-<div class="sidebar d-print-none d-none d-xl-block">
-    {{ if .IsHome }}
-        
-    {{ else }}
-        
-        
-    {{ end }}
-    {{ range .Site.Taxonomies.tags.featured }}
-        <a href="{{ .Permalink }}" class="nav-link">{{ .Title }}</a>
-    {{ end }}
-    <h2 class="mt-4">Recent Posts</h2>
-    <nav class="nav flex-column">
-        {{ range first 10 (where (where .Site.RegularPages "Type" "in" site.Params.mainSections) ".Params.hidden" "!=" true) }}
-        <a href="{{ .Permalink }}" class="nav-link">{{ .Title }}</a>
-        {{ end }}
-    </nav>
-   
-   
+<!-- Sidebar -->
+<div class="sidebar d-none d-md-block">
+    <!-- Recent Posts Section -->
+    <div class="recent-posts">
+        <h2 class="section-title">Recent Posts</h2>
+        <nav class="nav flex-column">
+            {{ range first 10 (where (where .Site.RegularPages "Type" "in" site.Params.mainSections) ".Params.hidden" "!=" true) }}
+            <a href="{{ .Permalink }}" class="nav-link">{{ .Title }}</a>
+            {{ end }}
+        </nav>
+    </div>
+
+    <!-- Social Post Section -->
+    <div class="social-post">
+        <div id="twitter-post" class="social-post-item">
+            <blockquote class="twitter-tweet">
+                <p lang="ne" dir="ltr">
+                    प्रिय बुकि!<br><br>
+                    के तिमिलाई थाहा छ <br>
+                    तिमि फूल्दा कस्ति देखिन्छ्यौ??<br>
+                    हिउँजस्तै कन्चन अनि<br>
+                    गंगा जस्तै निर्मल!
+                    <a href="https://twitter.com/hashtag/theflowerofmountain?src=hash&amp;ref_src=twsrc%5Etfw">#theflowerofmountain</a>
+                    <a href="https://twitter.com/hashtag/%E0%A4%AC%E0%A5%81%E0%A4%95%E0%A4%BF%E0%A4%AB%E0%A5%82%E0%A4%B2?src=hash&amp;ref_src=twsrc%5Etfw">#बुकिफूल</a>
+                    <a href="https://t.co/CXOj12ykva">pic.twitter.com/CXOj12ykva</a>
+                </p>
+                &mdash; बुकि फूल🪄 (@biochemicalmind)
+                <a href="https://twitter.com/biochemicalmind/status/1738842713955397847?ref_src=twsrc%5Etfw">December 24, 2023</a>
+            </blockquote>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+
+        <div id="instagram-post" class="social-post-item" style="display: none;">
+            <iframe src="https://www.instagram.com/p/C05VUbNPhC7/embed" width="100%" height="400" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+        </div>
+    </div>
 </div>
+
+
+<!-- Detection Script -->
+<script>
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            var twitterPost = document.getElementById('twitter-post');
+            var instagramPost = document.getElementById('instagram-post');
+
+            // Check if Twitter embed has an iframe
+            var isTwitterRendered = twitterPost.querySelector('iframe');
+
+            // Check for improper styling indicating adblock interference
+            var computedStyles = window.getComputedStyle(twitterPost);
+            var backgroundColor = computedStyles.backgroundColor;
+
+            if (!isTwitterRendered || backgroundColor === 'rgb(29, 161, 242)') {
+                twitterPost.style.display = 'none';
+                instagramPost.style.display = 'block';
+            }
+        }, 1000);
+    });
+</script>

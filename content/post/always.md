@@ -8,10 +8,10 @@ categories:
 tags:
   - theflowerofmountain
 ---
-### always….
+
 
 I always  
-compress my  
+compress my  <!--more-->
 emotions  
 and suppress  
 the feelings  

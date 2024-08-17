@@ -85,7 +85,7 @@ a.card:hover {
 footer,
 .sidebar {
     flex-shrink: 0;
-    background-color: #0056b3;
+    background-color: #b3005a;
 }
 
 .sidebar .badge-secondary {
@@ -181,6 +181,8 @@ footer hr {
     justify-content: center!important;
 }
 
+
+
 .feature-image,
 .feature-banner {
     background: no-repeat center center;
@@ -240,16 +242,23 @@ footer hr {
     background-color: #9699f6;
 }
 .btn-outline-secondary {
-    color: #333;
-    background-color: #ffffff;
-    border-color: #ccc;
-    transition: background-color 0.3s ease-in-out;
+    color: #fff; /* White text for better contrast */
+    background: linear-gradient(135deg, #4a4a4a, #1a1a1a); /* Gradient background for depth */
+    border: 1px solid transparent; /* Transparent border for modern design */
+    border-radius: 50px; /* Rounded corners */
+    padding: 0.5rem 1.5rem; /* Increased padding for a more prominent button */
+    font-size: 1rem; /* Adjust font size as needed */
+    font-weight: 600; /* Slightly bolder text */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for a floating effect */
 }
 
-a.btn-outline-secondary:hover {
-    color: #333;
-    background-color: #8c1414;
-    border-color: #adadad;
+.btn-outline-secondary:hover {
+    color: #fff; /* Maintain white text on hover */
+    background: linear-gradient(135deg, #0fb97b, #4a4a4a); /* Inverted gradient for hover effect */
+    border-color: #0fb97b; /* Accent border color for hover effect */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
 blockquote {
@@ -274,12 +283,55 @@ blockquote::before {
     top: -10px;
 }
 
-/* Bio Section Styling */
-.bio-section {
-    text-align: center;
-    margin: 40px 0;
+/* Article Content Styling */
+.article-content {
+    margin: 0 auto; /* Center the article on the page */
+    padding: 20px;
 }
 
+/* Header Styling */
+.abc {
+    background: linear-gradient(135deg, #28313b, #485461); /* Modern dark gradient */
+    color: #fff; /* White text color for contrast */
+    padding: 20px;
+    border-radius: 3px; /* Rounded corners for a modern touch */
+    text-align: center;
+
+    
+}
+
+.abc_text h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5em;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase; /* Make the title bold and impactful */
+    color: #f4f4f4;
+}
+
+/* Bio Section Styling */
+.bio-section {
+    padding: 20px;
+    text-align: justify;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    border-radius: 5px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 100%;
+    width: 100%;
+}
+
+/* Typography and Text Styling */
+.bio-section p {
+    font-size: 1.2em;
+    color: #5a5a5a;
+    line-height: 1.6;
+    font-family: 'Open Sans', sans-serif;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* Profile Photo Styling */
 .profile-photo {
     width: 150px;
     height: 150px;
@@ -294,13 +346,6 @@ blockquote::before {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
-.bio-section p {
-    text-align: left;
-    font-size: 1.1rem;
-    margin-top: 10px;
-    color: #333333;
-    font-family: 'Inter', sans-serif;
-}
 
 .post-date {
     margin-left: 10px; /* Adjust this value to increase or decrease space */
@@ -314,4 +359,295 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+/* Post container */
+.post {
+    margin-bottom: 2rem; /* Space between posts */
+    padding: 1rem; /* Padding inside post */
+    border-radius: 8px; /* Rounded corners */
+    background: #fff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.post:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    transform: translateY(-5px); /* Slight lift effect */
+}
+
+/* Post link */
+.post-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent */
+}
+
+/* Post content */
+.post-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Title styling */
+.post-title {
+    font-size: 1.5rem; /* Title font size */
+    font-weight: 700; /* Bold title */
+    color: #333; /* Dark text color */
+    margin-bottom: 0.5rem; /* Space below title */
+}
+
+/* Date styling */
+.post-date {
+    font-size: 0.9rem; /* Slightly smaller text for date */
+    color: #666; /* Light grey color */
+    margin-bottom: 1rem; /* Space below date */
+}
+
+/* Excerpt styling */
+.post-excerpt {
+    font-size: 1rem; /* Font size for excerpt */
+    color: #444; /* Slightly lighter text color */
+    margin-bottom: 1rem; /* Space below excerpt */
+}
+
+/* Button styling */
+.btn-primary {
+    display: inline-block; /* Inline-block for button */
+    padding: 0.5rem 1.5rem; /* Padding for button */
+    font-size: 1rem; /* Font size for button */
+    font-weight: 600; /* Bold text for button */
+    color: #fff; /* White text */
+    background: linear-gradient(135deg, #0fb97b, #431c7a); /* Gradient background */
+    border: none; /* Remove border */
+    border-radius: 50px; /* Rounded corners */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #431c7a, #0fb97b); /* Reverse gradient on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .post {
+        padding: 1rem; /* Adjust padding for smaller screens */
+    }
+
+    .post-title {
+        font-size: 1.0rem; /* Adjust font size for smaller screens */
+    }
+
+    .post-excerpt {
+        font-size: 0.8rem; /* Adjust font size for smaller screens */
+    }
+}
+
+/* Container for the new posts section */
+.new-posts-section {
+    margin: 2rem 0; /* Space above and below */
+    padding: 0.5rem; /* Padding inside */
+    background: linear-gradient(135deg, #03886b, #0928c5); /* Gradient background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    position: relative; /* For pseudo-elements */
+}
+
+/* Section title styling */
+.section-title {
+    font-size: 1.5rem; /* Large font size */
+    font-weight: 900; /* Bold text */
+    color: #fff; /* White text color */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 1px; /* Slightly spaced letters */
+    position: relative; /* For pseudo-elements */
+    margin: 0; /* Remove default margin */
+}
+
+/* Decorative line under the title */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px; /* Line width */
+    height: 4px; /* Line height */
+    background: #fff; /* Line color */
+    margin: 1rem auto; /* Center the line */
+    border-radius: 2px; /* Rounded corners for the line */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .new-posts-section {
+        padding: 1.2rem; /* Adjust padding for smaller screens */
+    }
+
+    .section-title {
+        font-size: 1rem; /* Adjust font size for smaller screens */
+    }
+}
+
+/* About Me Section Styling */
+.about-me-section {
+    background: #f0f8ff; /* Light icy blue background */
+    padding: 2rem; /* Space inside the section */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    position: relative; /* For positioning */
+    max-width: 800px; /* Max width for large screens */
+    margin: 0 auto; /* Center the section */
+}
+
+/* Profile Picture Styling */
+.profile-pic {
+    width: 150px; /* Adjust width */
+    height: 150px; /* Adjust height */
+    border-radius: 50%; /* Circular image */
+    border: 5px solid #022322; /* Blue border */
+    object-fit: cover; /* Ensure the image fits */
+}
+
+/* Description Text Styling */
+.about-me-description {
+    font-size: 1.2rem; /* Slightly larger text */
+    color: #333; /* Dark text color */
+    line-height: 1.6; /* Line spacing */
+    margin: 1rem 0; /* Margin above and below */
+    padding: 0 1rem; /* Padding on sides for mobile */
+}
+
+/* Interests Text Styling */
+.about-me-interests {
+    font-size: 1.2rem; /* Larger font size */
+    color: #007bff; /* Blue text color */
+    font-weight: bold; /* Bold text */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-me-section {
+        padding: 1rem; /* Less padding on small screens */
+    }
+
+    .profile-pic {
+        width: 120px; /* Smaller width */
+        height: 120px; /* Smaller height */
+    }
+
+    .about-me-description, .about-me-interests {
+        font-size: 1rem; /* Adjust text size */
+    }
+}
+
+
+/* Sidebar Container */
+.sidebar {
+    background: linear-gradient(135deg, #e0e0e0, #808080); /* Gradient background */
+    padding: 1.5rem; /* Increased padding for better spacing */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%; /* Full width */
+    max-width: 400px; /* Maximum width */
+}
+
+/* Section Title */
+.section-title {
+    font-size: 2rem; /* Larger font size */
+    color: #f9f1f1; /* Dark text color */
+    text-align: center; /* Centered text */
+    margin-bottom: 1.5rem; /* Space below title */
+    padding-bottom: 0.5rem; /* Padding below */
+    font-weight: 800; /* Bold text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+}
+
+/* Navigation Links */
+.nav-link {
+    font-size: 1.3rem; /* Slightly larger font */
+    color: #0c038a; /* Slightly lighter grey color */
+    text-decoration: none; /* Remove underline */
+    padding: 0.75rem; /* Padding for spacing */
+    border-radius: 8px; /* Rounded corners */
+    transition: color 0.3s, background-color 0.3s; /* Smooth transitions */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Matching font */
+    display: block; /* Block display for full width */
+}
+
+.nav-link:hover {
+    color: #fff; /* White text on hover */
+    background-color: #007bff; /* Blue background on hover */
+    border-radius: 5px; /* Rounded corners on hover */
+}
+
+/* Social Post Item */
+.social-post-item {
+    margin-bottom: 1rem; /* Space between items */
+}
+
+/* Embedded Twitter Post */
+#twitter-post blockquote.twitter-tweet {
+    border-left: 4px solid #007bff; /* Blue accent border */
+    padding: 1rem; /* Padding around the tweet */
+    background: #f9f9f9; /* Light background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 1.5rem; /* Space below */
+}
+
+/* Embedded Instagram Post */
+#instagram-post iframe {
+    border-left: 4px solid #007bff; /* Blue accent border */
+    padding: 1rem; /* Padding around the tweet */
+    background: #f9f9f9; /* Light background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 1.5rem; /* Space below */
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .sidebar {
+        max-width: 100%; /* Full width on medium screens */
+        position: fixed; /* Fixed position */
+        top: 0;
+        right: 0;
+        height: 100vh; /* Full viewport height */
+        overflow-y: auto; /* Scrollable content */
+        border-radius: 0; /* Remove rounded corners */
+        box-shadow: none; /* Remove shadow */
+    }
+}
+
+ /* Header section styling */
+ .abc {
+    background: linear-gradient(135deg, #1f1c2c, #928dab); /* Modern gradient background */
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+}
+
+/* Header text styling */
+.abc_text h1 {
+    font-size: 3em;
+    font-weight: bold;
+    color: #ffffff; /* Bright white text */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+    font-family: 'Roboto', sans-serif; /* Modern sans-serif font */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .abc {
+        padding: 30px 15px;
+    }
+    .abc_text h1 {
+        font-size: 2.2em;
+        letter-spacing: 2px;
+    }
 }

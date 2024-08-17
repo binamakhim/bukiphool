@@ -8,9 +8,8 @@ categories:
 tags:
   - theflowerofmountain
 ---
-### That time….
 
-Last time we talked,  
+Last time we talked, <!--more--> 
 you told me you moved on..  
 even though we weren’t together  
 that time, I wasn’t gone…

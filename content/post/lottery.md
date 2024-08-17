@@ -7,7 +7,7 @@ categories:
 tags:
   - theflowerofmountain
 ---
-
+<!--more-->
 # **I would pay the taxes….and donate the rest….** 
 
 

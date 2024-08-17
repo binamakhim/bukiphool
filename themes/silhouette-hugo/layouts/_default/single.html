@@ -5,14 +5,37 @@
   {{ .Title }} | {{ .Site.Title }}
 {{ end }}
 {{ define "main" }}
+<style>
+  /* Basic Reset */
+  body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+  }
 
-<article class="container mt-4 post">
-    <h1>{{ .Title }}</h1>
-    <div class="bio-section">
+  /* Background Image for Article Content */
+  .article-background {
+      background-image: url(https://images2.imgbox.com/4f/8f/lgtWDbXA_o.jpg); /* Replace with your image URL */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh; /* Full viewport height */
+      padding: 20px; /* Add padding if needed */
+      box-sizing: border-box;
+  }
+  </style>
+
+<article class="article-content">
+  <header class="abc">
+    <div class="abc_text">
+        <h1 class="text-center">{{ .Title }}</h1>
+    </div>   
+  </header>
+  <div class="bio-section">
       <img src="{{ "https://images2.imgbox.com/9c/5f/gRW3JLKk_o.jpg" }}" alt="Your Photo" class="profile-photo">
       <p>{{ .Content }}</p>  
-    </div>
-  
-    
+  </div> 
 </article>
+
 {{ end }}

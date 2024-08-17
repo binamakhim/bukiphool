@@ -7,7 +7,7 @@ categories:
 tags:
   - theflowerofmountain
 ---
-There are different species of mushrooms found in the wild. Some of these are edible, while others are poisonous. Mushrooms come in various colors, adding magnificent beauty to nature. They never fail to sway my excitement with their appearance, and every time I observe them, I capture their beautiful pictures. Mushrooms are well-known for their beauty, as a food source, for their healing capabilities, and sometimes for the deadly poisons they contain. But have you observed many of these species? For sure, here are…
+There are different species of mushrooms found in the wild. Some of these are edible, while others <!--more--> are poisonous. Mushrooms come in various colors, adding magnificent beauty to nature. They never fail to sway my excitement with their appearance, and every time I observe them, I capture their beautiful pictures. Mushrooms are well-known for their beauty, as a food source, for their healing capabilities, and sometimes for the deadly poisons they contain. But have you observed many of these species? For sure, here are…
 
 ![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211103123145-1.jpg?w=1022)
 ---
