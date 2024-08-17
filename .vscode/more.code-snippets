@@ -1,0 +1,8 @@
+{
+	"Insert More Comment": {
+	  "prefix": "more",
+	  "body": ["<!--more-->"],
+	  "description": "Insert the <!--more--> comment"
+	}
+  }
+  
