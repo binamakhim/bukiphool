@@ -82,11 +82,12 @@
       
      <!-- About Me Section -->
 
-     <section class="about-me-section text-center">
-      <img src="{{ "https://images2.imgbox.com/fc/bf/EoguhscL_o.png" | absURL }}" alt="Profile Picture" class="profile-pic mb-4">
+     <section class="about-me-section text-center" >
+      <a href="/about"><img src="{{ "https://images2.imgbox.com/fc/bf/EoguhscL_o.png" | absURL }}" alt="Profile Picture" class="profile-pic mb-4"></a>
       <p class="about-me-description"> In the heart of the Himalayan breeze, where the mountain whispers secrets to the skies, lives Bukiphool. A daughter of Nepal’s rugged peaks, she embraces the world with a heart full of wonder and a spirit of unyielding determination.</p>
       <p class="about-me-interests">
-      <strong>Science | Psychology | Nature</strong>
+        <strong>Science | Psychology | Nature</strong></a>
+        
     </p>
   </section>
 
@@ -96,7 +97,7 @@
         <section class="new-posts-section text-center">
           <h3 class="section-title">Check My New Posts</h3>
         </section>
-          {{ $recentPosts := first 3 (where site.RegularPages "Params.hidden" "ne" true) }}
+          {{ $recentPosts := first 2 (where site.RegularPages "Params.hidden" "ne" true) }}
           {{ range $recentPosts }}
           <article class="post">
             <a class="title" href="{{ .Permalink }}"><h2>{{ .Title }}</h2></a>
@@ -110,8 +111,8 @@
           </article>
           
           {{ end }}
-          <a href="/post" class="btn btn-primary">CHECK OUT MORE!</a>
-
+          <div class ="centers"><a href="/post" class="btn btn-primary">CHECK OUT MORE</a>
+          </div>
       </section>
 
       {{ else }}

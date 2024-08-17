@@ -180,7 +180,9 @@ footer hr {
     -ms-flex-pack: center!important;
     justify-content: center!important;
 }
-
+.centers {
+    text-align: center;
+}
 
 
 .feature-image,
