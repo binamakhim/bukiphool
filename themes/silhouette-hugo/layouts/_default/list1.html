@@ -85,15 +85,8 @@
       {{ end }}
       {{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) 5}}
       {{ range $paginator.Pages }}
-      <article class="post">
-        <a class="title" href="{{ .Permalink }}">
-            <h2>{{ .Title }} 
-                <span class="post-date">
-                    <i class="far fa-calendar-alt"></i>&nbsp;{{- .Date.Format "Jan 2, 2006" -}}
-                    
-                </span>
-            </h2>
-        </a>
+      
+    
     </article>
     
     {{ end }}
