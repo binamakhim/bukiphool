@@ -1,6 +1,12 @@
 +++
-title = "World Famous"
+title = "Thank You"
 date = "2023-04-09"
 menu = "main"
 +++
-# This is world famous person.
+ Hello this is **B. MAKHIM(bukiphool)**
+Thank you for Visiting.
+### [*Do not forget to follow me for new updates !!*](https://x.com/biochemicalmind)
+---
+ This is end of the page  [Click Here](/bukiphool/)
+---
+
