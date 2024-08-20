@@ -4,7 +4,7 @@
     {{ with .Param "featureImage" }}
     <style type="text/css">
         .feature-image {
-            background-image: url("{{ . | absURL | safeCSS}}");
+            background-image: url("{{ . | absURL | safeCSS }}");
             height: 500px;
         }
 
@@ -27,14 +27,19 @@
         }
     </style>
     {{ end }}
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {{ end }}
+
 {{ define "title" }}
   {{ .Title }} | {{ .Site.Title }}
 {{ end }}
+
 {{ define "header" }}
 <header class="feature-image d-print-none">
 </header>
 {{ end }}
+
 {{ define "main" }}
 <div class="container mt-4 post">
     <h1>{{ .Title }}</h1>
@@ -49,5 +54,27 @@
     </div>
 
     {{ template "_internal/disqus.html" . }}
+
+    <div class="post-navigation mt-5 d-flex justify-content-between">
+        {{ with .Next }}
+        <div class="next-post text-right"> 
+            <a href="{{ .Permalink }}" class="btn-animated">
+                 <i class="fas fa-arrow-left"></i>{{ .Title }}
+               
+            </a>
+        </div>
+        {{ end }}
+        {{ with .Prev }}
+        <div class="prev-post">
+            <a href="{{ .Permalink }}" class="btn-animated">
+                {{ .Title }} <i class="fas fa-arrow-right"></i> 
+            </a>
+        </div>
+        {{ end }}
+
+      
+    </div>
 </div>
 {{ end }}
+
+

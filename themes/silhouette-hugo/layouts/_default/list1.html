@@ -85,7 +85,13 @@
       {{ end }}
       {{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) 5}}
       {{ range $paginator.Pages }}
-      
+      <a href="/about">
+        <section class="about-me-section text-center zoom-on-hover animate-on-click">
+            <img src="{{ "https://images2.imgbox.com/fc/bf/EoguhscL_o.png" | absURL }}" alt="Profile Picture" class="profile-pic mb-4">
+            <p class="about-me-description">In the heart of the Himalayan breeze, where the mountain whispers secrets to the skies, lives Bukiphool. A daughter of Nepal’s rugged peaks, she embraces the world with a heart full of wonder and a spirit of unyielding determination.</p>
+            <p class="about-me-interests"><strong>Science | Psychology | Nature</strong></p>
+        </section>
+    </a>
     
     </article>
     
