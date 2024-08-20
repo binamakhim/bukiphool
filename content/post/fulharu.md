@@ -105,4 +105,3 @@ tags:
 ---
 ![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-30-59-31_1c337646f29875672b5a61192b9010f9.jpg?w=720)
 ---
-![](https://1.gravatar.com/avatar/a774ded4e924348d4c2f530ad871424a08c5f0abfaba0fd891069d6333bfcd6f?s=80&d=identicon&r=G)

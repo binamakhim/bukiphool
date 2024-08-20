@@ -58,5 +58,4 @@ If you love butterflies, I strongly recommend you visit the Godavari Botanical G
 ---
 ![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910130327.jpg?w=1024)
 ---
-![](https://1.gravatar.com/avatar/a774ded4e924348d4c2f530ad871424a08c5f0abfaba0fd891069d6333bfcd6f?s=80&d=identicon&r=G)
 ---

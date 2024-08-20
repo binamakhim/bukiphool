@@ -30,7 +30,3 @@ tags:
 ---
 ![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-27-09-03-45-85_1c337646f29875672b5a61192b9010f9.jpg?w=720)
 ---
----
-![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/wp-1674718844968.jpg?w=50)
----
-![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/wp-1674718844968.jpg?w=50)

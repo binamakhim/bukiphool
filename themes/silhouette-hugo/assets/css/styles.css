@@ -355,11 +355,37 @@ blockquote::before {
     text-align: justify;
 }
 img {
-    max-width: 100%;
-    height: auto;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%; /* Ensure the image fills its container */
+    max-width: 500px; /* Set a consistent maximum width */
+    height: auto; /* Maintain aspect ratio */
+    margin: 10px auto; /* Center the image with margin */
+    border: 2px solid #ddd; /* Modern, subtle gray border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    border-radius: 8px;
+    background-color: #f9f9f9; /* Very light gray background */
+    cursor: pointer; /* Indicate that the image is clickable */
+}
+/* Ensure the image looks good across different screen sizes */
+@media (max-width: 992px) {
+    img {
+        max-width: 400px; /* Adjust width for medium screens */
+        border-width: 6px; /* Adjust border size */
+    }
+}
+
+@media (max-width: 768px) {
+    img {
+        max-width: 400px; /* Adjust width for small screens */
+        border-width: 4px; /* Adjust border size */
+    }
+}
+
+@media (max-width: 576px) {
+    img {
+        max-width: 350px; /* Adjust width for extra small screens */
+        border-width: 3px; /* Adjust border size */
+    }
 }
 
 
