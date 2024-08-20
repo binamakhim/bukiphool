@@ -7,6 +7,6 @@ menu = "main"
 Thank you for Visiting.
 ### [*Do not forget to follow me for new updates !!*](https://x.com/biochemicalmind)
 ---
- This is end of the page  [Click Here](/bukiphool/)
+gi This is end of the page  
 ---
 
