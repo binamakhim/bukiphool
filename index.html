@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bukiphool · बुकीफूल</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Tiro+Devanagari+Hindi:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f9f4ee;
+      --warm: #f0e8dc;
+      --brown: #4a2e1a;
+      --terracotta: #b85c38;
+      --sage: #7a9e7e;
+      --gold: #c9964a;
+      --ink: #2a1a0e;
+      --muted: #9a8070;
+      --border: #d6c4b0;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--cream); color:var(--ink); font-family:'DM Sans',sans-serif; min-height:100vh; }
+
+    /* NAV */
+    nav {
+      position:sticky; top:0; z-index:100;
+      background:var(--cream); border-bottom:1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 2.5rem; height:60px;
+    }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--brown); text-decoration:none; cursor:pointer; }
+    .nav-logo span { color:var(--terracotta); }
+    .nav-links { display:flex; gap:1.8rem; align-items:center; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:0.875rem; letter-spacing:0.05em; text-transform:uppercase; font-weight:500; transition:color 0.2s; cursor:pointer; }
+    .nav-links a:hover { color:var(--brown); }
+    .btn-write { background:var(--terracotta) !important; color:#fff !important; padding:0.45rem 1.1rem; border-radius:4px; font-size:0.8rem !important; }
+    .btn-write:hover { background:var(--brown) !important; }
+    .hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:4px; }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--brown); border-radius:2px; }
+
+    /* HERO */
+    .hero { position:relative; background:linear-gradient(160deg,#2a1a0e 0%,#4a2e1a 50%,#6b3d22 100%); padding:5rem 2.5rem 4rem; overflow:hidden; text-align:center; }
+    .hero::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9964a' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+    .hero-tag { display:inline-block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(201,150,74,0.4); padding:0.25rem 0.9rem; border-radius:2px; margin-bottom:1.5rem; }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.5rem,6vw,4.5rem); color:var(--cream); line-height:1.1; margin-bottom:1rem; position:relative; }
+    .hero h1 em { color:var(--gold); font-style:italic; }
+    .hero-sub { font-family:'Tiro Devanagari Hindi',serif; color:rgba(249,244,238,0.65); font-size:1.05rem; line-height:1.8; max-width:480px; margin:0 auto 2rem; position:relative; }
+    .hero-meta { display:flex; gap:2.5rem; justify-content:center; flex-wrap:wrap; position:relative; }
+    .hero-meta-num { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--gold); }
+    .hero-meta-label { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(249,244,238,0.45); }
+
+    /* FILTER */
+    .filter-bar { padding:1.2rem 2.5rem; border-bottom:1px solid var(--border); display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; }
+    .filter-label { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-right:0.5rem; }
+    .filter-btn { padding:0.3rem 0.85rem; border:1px solid var(--border); border-radius:20px; background:transparent; color:var(--muted); font-size:0.8rem; cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif; }
+    .filter-btn.active,.filter-btn:hover { background:var(--terracotta); border-color:var(--terracotta); color:#fff; }
+
+    /* SEARCH */
+    .search-wrap { padding:0 2.5rem 1rem; }
+    .search-input { width:100%; max-width:400px; padding:0.6rem 1rem; border:1px solid var(--border); border-radius:20px; background:#fff; color:var(--ink); font-family:'DM Sans',sans-serif; font-size:0.9rem; outline:none; transition:border-color 0.2s; }
+    .search-input:focus { border-color:var(--terracotta); }
+
+    /* GRID */
+    .posts-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:0; border-left:1px solid var(--border); }
+    .post-card { border-right:1px solid var(--border); border-bottom:1px solid var(--border); padding:2rem; cursor:pointer; transition:background 0.2s; position:relative; }
+    .post-card:hover { background:var(--warm); }
+    .post-card-cat { font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--terracotta); margin-bottom:0.6rem; font-weight:500; }
+    .post-card-title { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--brown); line-height:1.35; margin-bottom:0.7rem; }
+    .post-card-excerpt { font-family:'Tiro Devanagari Hindi',serif; color:var(--muted); font-size:0.92rem; line-height:1.7; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .post-card-foot { margin-top:1.2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+    .post-card-date { font-size:0.75rem; color:var(--muted); }
+    .post-card-tags { display:flex; gap:0.4rem; flex-wrap:wrap; }
+    .tag { font-size:0.65rem; padding:0.15rem 0.5rem; background:var(--warm); border:1px solid var(--border); border-radius:3px; color:var(--muted); }
+    .post-card-arrow { position:absolute; top:1.5rem; right:1.5rem; color:var(--border); font-size:1rem; transition:color 0.2s,transform 0.2s; }
+    .post-card:hover .post-card-arrow { color:var(--terracotta); transform:translate(2px,-2px); }
+
+    /* PAGINATION */
+    .pagination { display:flex; gap:0.5rem; justify-content:center; padding:2rem; flex-wrap:wrap; }
+    .page-btn { padding:0.4rem 0.9rem; border:1px solid var(--border); border-radius:4px; background:transparent; color:var(--muted); font-size:0.85rem; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all 0.2s; }
+    .page-btn.active,.page-btn:hover { background:var(--terracotta); border-color:var(--terracotta); color:#fff; }
+
+    /* SINGLE POST */
+    .post-view { display:none; max-width:700px; margin:0 auto; padding:3rem 2rem 5rem; }
+    .post-view.active { display:block; }
+    .post-view-back { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.82rem; color:var(--muted); cursor:pointer; margin-bottom:2.5rem; transition:color 0.2s; border:none; background:none; font-family:'DM Sans',sans-serif; }
+    .post-view-back:hover { color:var(--terracotta); }
+    .post-view-cat { font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--terracotta); margin-bottom:0.8rem; }
+    .post-view h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.8rem); color:var(--brown); line-height:1.2; margin-bottom:1.2rem; }
+    .post-view-meta { display:flex; gap:1.5rem; font-size:0.78rem; color:var(--muted); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:0.8rem 0; margin-bottom:2.5rem; flex-wrap:wrap; }
+    .post-view-body { font-family:'Tiro Devanagari Hindi',serif; font-size:1.1rem; line-height:2; color:var(--ink); }
+    .post-view-body p { margin-bottom:1.2rem; }
+    .post-view-body img { max-width:100%; border-radius:6px; margin:1rem 0; display:block; }
+    .post-view-body blockquote { border-left:3px solid var(--terracotta); padding-left:1rem; color:var(--muted); margin:1rem 0; }
+    .post-view-body h2 { font-family:'Playfair Display',serif; color:var(--brown); margin:1.5rem 0 0.5rem; }
+    .post-view-body h3 { font-family:'Playfair Display',serif; color:var(--brown); margin:1.2rem 0 0.4rem; }
+    .post-view-body ul { padding-left:1.5rem; margin-bottom:1rem; }
+    .post-view-body li { margin-bottom:0.3rem; }
+    .post-view-body hr { border:none; border-top:1px solid var(--border); margin:1.5rem 0; }
+    .post-view-tags { margin-top:2.5rem; display:flex; gap:0.5rem; flex-wrap:wrap; }
+    .post-nav { display:flex; justify-content:space-between; margin-top:3rem; padding-top:1.5rem; border-top:1px solid var(--border); gap:1rem; }
+    .post-nav-btn { padding:0.5rem 1rem; border:1px solid var(--border); border-radius:4px; background:transparent; color:var(--muted); font-size:0.82rem; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all 0.2s; max-width:45%; text-align:center; }
+    .post-nav-btn:hover { border-color:var(--terracotta); color:var(--terracotta); }
+
+    /* ABOUT */
+    .about-view { display:none; max-width:700px; margin:0 auto; padding:4rem 2rem; }
+    .about-view.active { display:block; }
+    .about-header { text-align:center; margin-bottom:3rem; }
+    .about-avatar { width:110px; height:110px; border-radius:50%; object-fit:cover; border:3px solid var(--gold); margin:0 auto 1.5rem; display:flex; align-items:center; justify-content:center; font-size:3.5rem; background:linear-gradient(135deg,var(--terracotta),var(--gold)); }
+    .about-name { font-family:'Playfair Display',serif; font-size:2rem; color:var(--brown); margin-bottom:0.3rem; }
+    .about-tagline { color:var(--terracotta); font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; }
+    .about-body { font-family:'Tiro Devanagari Hindi',serif; font-size:1.05rem; line-height:2; color:var(--ink); }
+    .about-body p { margin-bottom:1.4rem; }
+    .about-social { margin-top:2.5rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .social-link { padding:0.5rem 1.2rem; border:1px solid var(--border); border-radius:4px; color:var(--muted); text-decoration:none; font-size:0.82rem; transition:all 0.2s; }
+    .social-link:hover { border-color:var(--terracotta); color:var(--terracotta); }
+
+    /* EDITOR */
+    .editor-view { display:none; max-width:860px; margin:0 auto; padding:3rem 2rem 5rem; }
+    .editor-view.active { display:block; }
+    .editor-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:1rem; }
+    .editor-header h2 { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--brown); }
+    .editor-actions { display:flex; gap:0.65rem; flex-wrap:wrap; }
+    .btn { padding:0.5rem 1.1rem; border-radius:4px; font-size:0.83rem; cursor:pointer; font-family:'DM Sans',sans-serif; font-weight:500; border:none; transition:all 0.2s; }
+    .btn-primary { background:var(--terracotta); color:#fff; }
+    .btn-primary:hover { background:var(--brown); }
+    .btn-secondary { background:transparent; border:1px solid var(--border); color:var(--muted); }
+    .btn-secondary:hover { border-color:var(--brown); color:var(--brown); }
+    .btn-github { background:var(--sage); color:#fff; }
+    .btn-github:hover { background:#5c7f60; }
+    .field { margin-bottom:1.3rem; }
+    .field label { display:block; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:0.4rem; }
+    .field input,.field textarea,.field select { width:100%; padding:0.65rem 1rem; border:1px solid var(--border); border-radius:4px; background:#fff; color:var(--ink); font-family:'DM Sans',sans-serif; font-size:0.95rem; transition:border-color 0.2s; }
+    .field input:focus,.field textarea:focus,.field select:focus { outline:none; border-color:var(--terracotta); }
+    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .editor-toolbar { display:flex; gap:0.4rem; flex-wrap:wrap; padding:0.5rem 0.75rem; background:var(--warm); border:1px solid var(--border); border-bottom:none; border-radius:4px 4px 0 0; }
+    .tb-btn { padding:0.25rem 0.6rem; border-radius:3px; background:transparent; border:1px solid transparent; color:var(--muted); font-size:0.82rem; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all 0.2s; }
+    .tb-btn:hover { background:#fff; border-color:var(--border); color:var(--brown); }
+    .tb-bold { font-weight:700; }
+    .tb-italic { font-style:italic; }
+    .editor-area { width:100%; min-height:340px; padding:1rem; border:1px solid var(--border); border-radius:0 0 4px 4px; background:#fff; color:var(--ink); font-family:'Tiro Devanagari Hindi',serif; font-size:1rem; line-height:1.9; resize:vertical; }
+    .editor-area:focus { outline:none; border-color:var(--terracotta); }
+    .editor-tabs { display:flex; border-bottom:1px solid var(--border); margin-bottom:0; }
+    .editor-tab { padding:0.5rem 1.2rem; font-size:0.82rem; cursor:pointer; color:var(--muted); border-bottom:2px solid transparent; transition:all 0.2s; background:transparent; border-top:none; border-left:none; border-right:none; font-family:'DM Sans',sans-serif; }
+    .editor-tab.active { color:var(--terracotta); border-bottom-color:var(--terracotta); }
+    .preview-area { display:none; min-height:340px; padding:1.5rem; border:1px solid var(--border); border-radius:4px; background:#fff; font-family:'Tiro Devanagari Hindi',serif; font-size:1rem; line-height:1.9; color:var(--ink); }
+    .preview-area.active { display:block; }
+    .preview-area img { max-width:100%; border-radius:6px; margin:1rem 0; }
+    .status-msg { margin-top:1rem; padding:0.6rem 1rem; border-radius:4px; font-size:0.85rem; display:none; }
+    .status-msg.success { background:#e8f5e9; color:#2e7d32; display:block; }
+    .status-msg.error { background:#fdecea; color:#c62828; display:block; }
+    .status-msg.info { background:#e3f2fd; color:#1565c0; display:block; }
+    .char-count { font-size:0.75rem; color:var(--muted); text-align:right; margin-top:0.2rem; }
+
+    /* GITHUB MODAL */
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(42,26,14,0.65); z-index:200; align-items:center; justify-content:center; }
+    .modal-overlay.active { display:flex; }
+    .modal { background:var(--cream); border-radius:8px; padding:2rem; max-width:520px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.3); max-height:90vh; overflow-y:auto; }
+    .modal h3 { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--brown); margin-bottom:0.4rem; }
+    .modal p { font-size:0.85rem; color:var(--muted); margin-bottom:1.2rem; line-height:1.6; }
+    .modal-actions { display:flex; gap:0.75rem; justify-content:flex-end; margin-top:1.2rem; flex-wrap:wrap; }
+    .modal-close { cursor:pointer; background:none; border:none; font-size:1.2rem; color:var(--muted); }
+    .gh-help { font-size:0.78rem; color:var(--muted); margin-top:0.3rem; line-height:1.5; }
+    .gh-help a { color:var(--terracotta); }
+
+    /* TOAST */
+    .toast { position:fixed; bottom:2rem; right:2rem; background:var(--brown); color:var(--cream); padding:0.8rem 1.4rem; border-radius:6px; font-size:0.85rem; z-index:300; transform:translateY(100px); opacity:0; transition:all 0.3s; max-width:300px; }
+    .toast.show { transform:translateY(0); opacity:1; }
+
+    /* SECTION HEADER */
+    .main-wrap { max-width:1200px; margin:0 auto; }
+    .section-header { padding:1.8rem 2.5rem 0.8rem; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:0.5rem; }
+    .section-title { font-family:'Playfair Display',serif; font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); }
+    .section-count { font-size:0.78rem; color:var(--muted); }
+    .empty-state { padding:3rem 2rem; color:var(--muted); grid-column:1/-1; text-align:center; }
+    .empty-state a { color:var(--terracotta); cursor:pointer; }
+
+    /* FOOTER */
+    footer { border-top:1px solid var(--border); padding:2rem 2.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+    .footer-name { font-family:'Playfair Display',serif; font-size:1rem; color:var(--brown); }
+    .footer-sub { font-size:0.78rem; color:var(--muted); margin-top:0.1rem; }
+    .footer-links { display:flex; gap:1.2rem; flex-wrap:wrap; }
+    .footer-links a { font-size:0.8rem; color:var(--muted); text-decoration:none; cursor:pointer; }
+    .footer-links a:hover { color:var(--terracotta); }
+
+    /* RESPONSIVE */
+    @media(max-width:700px){
+      nav { padding:0 1rem; }
+      .nav-links { display:none; flex-direction:column; position:absolute; top:60px; left:0; right:0; background:var(--cream); border-bottom:1px solid var(--border); padding:1rem 1.5rem; gap:1rem; }
+      .nav-links.open { display:flex; }
+      .hamburger { display:flex; }
+      .hero { padding:3rem 1.2rem 2.5rem; }
+      .filter-bar,.search-wrap { padding:1rem 1rem; }
+      .section-header { padding:1.2rem 1rem 0.5rem; }
+      .posts-grid { border-left:none; }
+      .field-row { grid-template-columns:1fr; }
+      footer { flex-direction:column; text-align:center; }
+      .editor-view,.post-view,.about-view { padding:2rem 1rem 4rem; }
+      .post-nav { flex-direction:column; }
+      .post-nav-btn { max-width:100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo" onclick="showPage('home')">Buki<span>phool</span></span>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a onclick="showPage('home');closeMenu()">Posts</a>
+    <a onclick="showPage('about');closeMenu()">About</a>
+    <a onclick="showPage('write');closeMenu()" class="btn-write">✦ Write</a>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home">
+  <div class="hero">
+    <div class="hero-tag">The Flower of Mountain · पहाडको फूल</div>
+    <h1>Buki<em>phool</em></h1>
+    <p class="hero-sub">पहाडको हावामा लेखिएका शब्दहरू — कविता, विचार र जिन्दगीका क्षणहरू।</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-num" id="post-count">57</div>
+        <div class="hero-meta-label">Posts</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">🏔</div>
+        <div class="hero-meta-label">Nepal</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">🌸</div>
+        <div class="hero-meta-label">Bukiphool</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrap">
+    <div class="filter-bar">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" onclick="filterPosts('all',this)">All</button>
+      <button class="filter-btn" onclick="filterPosts('poem',this)">Poem · कविता</button>
+      <button class="filter-btn" onclick="filterPosts('blog',this)">Blog</button>
+      <button class="filter-btn" onclick="filterPosts('haiku',this)">Haiku</button>
+    </div>
+    <div class="search-wrap">
+      <input class="search-input" type="text" id="search-input" placeholder="Search posts… खोज्नुहोस्" oninput="searchPosts(this.value)" />
+    </div>
+    <div class="section-header">
+      <span class="section-title">All Writing</span>
+      <span class="section-count" id="showing-count"></span>
+    </div>
+    <div class="posts-grid" id="posts-grid"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+</div>
+
+<!-- SINGLE POST VIEW -->
+<div id="page-post" class="post-view">
+  <button class="post-view-back" onclick="showPage('home')">← Back to all posts</button>
+  <div id="sv-cat" class="post-view-cat"></div>
+  <h1 id="sv-title"></h1>
+  <div class="post-view-meta">
+    <span id="sv-date"></span>
+    <span>Bina Makhim · Bukiphool</span>
+  </div>
+  <div class="post-view-body" id="sv-body"></div>
+  <div class="post-view-tags" id="sv-tags"></div>
+  <div class="post-nav">
+    <button class="post-nav-btn" id="prev-btn" onclick="navPost(-1)">← Previous</button>
+    <button class="post-nav-btn" id="next-btn" onclick="navPost(1)">Next →</button>
+  </div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div id="page-about" class="about-view">
+  <div class="about-header">
+    <div class="about-avatar">🌸</div>
+    <div class="about-name">Bina Makhim</div>
+    <div class="about-tagline">Bukiphool · The Flower of Mountain</div>
+  </div>
+  <div class="about-body">
+    <p>In the heart of the Himalayan breeze, where the mountain whispers secrets to the skies, lives a soul as vibrant as the wildflowers that dance in the highland meadows. I am Bukiphool, a daughter of Nepal's rugged peaks, where the land meets the clouds and the rivers sing lullabies to the stars.</p>
+    <p>My spirit is woven from the earth's finest threads, and in the tapestry of nature's beauty, I find my rhythm. With each dawn that touches the snowy summits, I embrace the world with a heart full of wonder. Nature is my canvas, and I paint my days with the colors of adventure and the scent of blooming hopes.</p>
+    <p>Among the echoes of ancient forests and the laughter of mountain streams, I find joy in the company of kindred souls. I am a seeker of stories, a weaver of connections, and a friend to all who cross my path. The company I keep is like the vibrant flora that thrives in our hills — diverse, beautiful, and full of life.</p>
+    <p>Yet, beneath the serene façade of the hills, there lies a spirit of unyielding determination. I am a hustler, fueled by the energy of the mountains and the dreams they inspire.</p>
+    <p style="color:var(--terracotta);font-weight:500;">Science · Psychology · Nature · Writing</p>
+  </div>
+  <div class="about-social">
+    <a class="social-link" href="https://instagram.com/biochemicalmind" target="_blank">Instagram</a>
+    <a class="social-link" href="https://twitter.com/biochemicalmind" target="_blank">Twitter</a>
+    <a class="social-link" href="https://linkedin.com/in/binaya-devi-makhim-77301031a" target="_blank">LinkedIn</a>
+    <a class="social-link" href="https://binayadevimakhim.com.np" target="_blank">Website</a>
+  </div>
+</div>
+
+<!-- WRITE PAGE -->
+<div id="page-write" class="editor-view">
+  <div class="editor-header">
+    <h2>✦ Write a New Post</h2>
+    <div class="editor-actions">
+      <button class="btn btn-secondary" onclick="saveDraft()">💾 Save Draft</button>
+      <button class="btn btn-primary" onclick="publishLocal()">✓ Publish</button>
+      <button class="btn btn-github" onclick="openGhModal()">↑ Push to GitHub</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Title · शीर्षक *</label>
+    <input type="text" id="e-title" placeholder="Your post title…" />
+  </div>
+  <div class="field-row">
+    <div class="field">
+      <label>Category</label>
+      <select id="e-category">
+        <option value="poem">Poem · कविता</option>
+        <option value="blog">Blog</option>
+        <option value="haiku">Haiku</option>
+        <option value="thoughts">Thoughts · विचार</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Tags (comma separated)</label>
+      <input type="text" id="e-tags" placeholder="theflowerofmountain, nature…" value="theflowerofmountain" />
+    </div>
+  </div>
+  <div class="field">
+    <label>Excerpt · सारांश</label>
+    <input type="text" id="e-excerpt" placeholder="First line or short summary shown on card…" />
+  </div>
+
+  <div class="field">
+    <label>Content · सामग्री *</label>
+    <div class="editor-tabs">
+      <button class="editor-tab active" onclick="switchTab('write',this)">✏ Write</button>
+      <button class="editor-tab" onclick="switchTab('preview',this)">👁 Preview</button>
+    </div>
+    <div class="editor-toolbar">
+      <button class="tb-btn tb-bold" onclick="fmt('**','**')">B</button>
+      <button class="tb-btn tb-italic" onclick="fmt('*','*')">I</button>
+      <button class="tb-btn" onclick="fmt('\n# ','')">H1</button>
+      <button class="tb-btn" onclick="fmt('\n## ','')">H2</button>
+      <button class="tb-btn" onclick="fmt('\n---\n','')">― HR</button>
+      <button class="tb-btn" onclick="fmt('\n> ','')">❝</button>
+      <button class="tb-btn" onclick="fmt('\n- ','')">• List</button>
+      <button class="tb-btn" onclick="fmt('![](',')')">🖼 Img</button>
+      <button class="tb-btn" onclick="fmt('[''](url)','')">🔗</button>
+    </div>
+    <textarea class="editor-area" id="e-area" oninput="updateCharCount()" placeholder="Write your post here…&#10;यहाँ नेपाली वा अंग्रेजीमा लेख्नुहोस्…"></textarea>
+    <div class="char-count" id="char-count">0 characters</div>
+    <div class="preview-area" id="e-preview"></div>
+  </div>
+
+  <div id="e-status" class="status-msg"></div>
+
+  <div id="md-output-wrap" style="display:none;" class="field">
+    <label>Generated Markdown (copy to your repo at content/post/filename.md)</label>
+    <textarea class="editor-area" id="md-output" style="min-height:180px;font-family:monospace;font-size:0.82rem;" readonly></textarea>
+  </div>
+</div>
+
+<!-- GITHUB MODAL -->
+<div class="modal-overlay" id="gh-modal">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+      <h3>Push to GitHub</h3>
+      <button class="modal-close" onclick="closeGhModal()">✕</button>
+    </div>
+    <p>This will push your post as a Markdown file directly to your GitHub repo using the GitHub API — no Git needed, works from any browser.</p>
+    <div class="field">
+      <label>GitHub Personal Access Token</label>
+      <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+      <div class="gh-help">Create one at <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a> → Fine-grained token → Contents: Read &amp; Write</div>
+    </div>
+    <div class="field">
+      <label>Repository (username/reponame)</label>
+      <input type="text" id="gh-repo" value="binayadevimakhim/bukiphool" />
+    </div>
+    <div class="field">
+      <label>Branch</label>
+      <input type="text" id="gh-branch" value="main" />
+    </div>
+    <div id="gh-status" class="status-msg"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeGhModal()">Cancel</button>
+      <button class="btn btn-github" onclick="pushToGitHub()">↑ Push Post</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div>
+    <div class="footer-name">Bukiphool · बुकीफूल</div>
+    <div class="footer-sub">© 2024 Bina Makhim · binayadevimakhim.com.np</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://instagram.com/biochemicalmind" target="_blank">Instagram</a>
+    <a href="https://twitter.com/biochemicalmind" target="_blank">Twitter</a>
+    <a onclick="showPage('write')">Write Post</a>
+  </div>
+</footer>
+
+<script>
+// ── ALL POSTS DATA ─────────────────────────────────
+const DEFAULT_POSTS = [{"id":2,"title":"Untold Stories","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"के के हारेँ मायामा….","content":"के के हारेँ मायामा….  \nम आफै  \nएउटा सिंगो  \nप्रमाण हुँ,  \nमायामा के के  \nहारिन्छ भन्ने!\n\nकृपया अब  \nनसोध्नुहोला फेरि  \nमैले के के हारेँ भनेर!  \nदाउमा जे जे लगाएँ  \nसप्पै गुमाएँ।  \nआशा,माया,मन  \nआत्मसम्मान,  \nस्वाभिमान,  \nसमय,भबिष्य  \nसबथोक!\n\nभनुँ भने,  \nएकमुठ्ठि सास बाहेक  \nसबै सबै सबै!!\n\n#theflowerofmountain\n\n---","draft":false},{"id":3,"title":"अचेलभरी…","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"अचेलभरी मनभित्र काडा फूलेजस्तो लाग्छ!","content":"अचेलभरी मनभित्र काडा फूलेजस्तो लाग्छ!  \nसुर्यमुखी मध्याह्नमै जूनमा झुलेजस्तो लाग्छ!\n\n\n\nचन्दनको अत्तर छैन पागल भएँ कि क्या हो?  \nसुगन्ध बाड्दै चापको फूल डुलेजस्तो लाग्छ!\n\nआफ्नै लास बोकेको जिन्दगी भो आजकल,  \nमलाई किन चादमा औसि खुलेजस्तो लाग्छ!!\n\n# theflowerofmountain","draft":false},{"id":4,"title":"आफन्त र आफ्नोपन","category":"blog","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"आफ्नो खुशिको क्षणमा आफन्त सबैलाई सामेल गराउनुहोस!","content":"आफ्नो खुशिको क्षणमा आफन्त सबैलाई सामेल गराउनुहोस!  \n\n\nअनि आफन्तको दु:ख को क्षणमा “आफन्त हुँ” सम्झेर आफै सामेल भइदिनुहोस!  \n\n\nयो नै आफन्त र आफ्नोपन जिउदो राख्ने उत्तम उपाय हो!  \n\n# theflowerofmountain","draft":false},{"id":5,"title":"Always","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"I always","content":"I always  \ncompress my  \nemotions  \nand suppress  \nthe feelings  \nso hard  \nbecause  \nIf I let them flow  \nthey will  \ncompletely  \ndrown me!!\n\n#theflowerofmountain","draft":false},{"id":6,"title":"त्यो अम्बरझै…","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"त्यो अम्बरझै चल्न सिकेँ,","content":"त्यो अम्बरझै चल्न सिकेँ,  \nनिरनिधी संग जल्न सिकेँ,\n\nजिन्दगीमा अनेक भोगेँ !  \nमैले शैलसित गल्न सिकेँ!  \n\nसाचो माया लाउदालाउदै   \nछितिज जस्तै छल्न सिकेँ!    \n\nमन;फूल हो कोमल भन्थे   \nयहाँ शिलाझै पग्लन सिकेँ!   \n\nसमयभन्दा हालातसँग हारेँ  \nमुटुमै आशु भइ बल्न सिकेँ!","draft":false},{"id":7,"title":"छामी हेरेँ ढुकढुकी","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"छामी हेरेँ ढुक्ढुकि","content":"छामी हेरेँ ढुक्ढुकि  \nधड्कन थिएन तर!   \nमुटुभित्र मायाको कम्पन थिएन तर!\n\nछट्पटाउदै, आत्तिदै चिच्याएँ यताउति,  \nआर्यघाटमा जल्दैथेँ तड्पन थिएन तर!\n\nझस्किएँ म देख्दा शरीर आत्मा अलग्गै,  \nस्वतन्त्र भएँ दुनियाँ अड्चन थिएन तर!\n\n#theflowerofmountain","draft":false},{"id":8,"title":"बुकि फूल","category":"blog","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"A poem of a flower named Tall Pearly Everlasting, bukiphool in Nepal","content":"A poem of a flower named Tall Pearly Everlasting, bukiphool in Nepal  \n\n---\nBukiphool in wild  \n\nRose in garden  \nLotus in pond  \nand Cactus in desert!\n\nShe is not only a Wildflower or  \njust a Homegrown flower...  \nShe is more than that!  \nShe is more than  \nyou know…\n\nYes, SHE is!","draft":false},{"id":9,"title":"म बुकि फूल हुँ","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"बिन्ती छ!","content":"बिन्ती छ!  \nमलाई त्यो  \nफूलदानिमा  \nसजाइएका गुलाबहरुसँग  \nतुलना नगरिदेउ प्यारा!\n\nम त त्यो  \nजंगलमा हुर्केकी  \nबुकि फूल हुँ,  \nजो सबैलाई मन पर्दिनँ!  \nतर जसलाई मनपर्छु,  \nउसको कि त  \nदिलमा सजिन्छु  \nकि त शिरमा सजिन्छु!\n\n#theflowerofmountain\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20221102103022.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img_20211007_230633.jpg?w=462)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/image_editor_output_image-2060700197-1674799743650.jpg?w=553)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20211007142248.jpg?w=461)","draft":false},{"id":10,"title":"Butterfly at Godawari","category":"blog","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"Godavari Botanical Garden is one of the finest places for an outing inside the Kathmandu valley. The visit helps to refresh your mind and vivify your knowledge ","content":"Godavari Botanical Garden is one of the finest places for an outing inside the Kathmandu valley. The visit helps to refresh your mind and vivify your knowledge about flora and fauna.  If you are interested in nature, especially in plant species and insect kingdoms, you will not be disappointed. It is located at the\n\n base of Mount Phulchowki. The garden has been in existence for over 55 years and is one of Nepal’s oldest botanical gardens. The garden has a wide variety of plants, including orchids, ferns, and cacti, and a beautiful collection of butterflies.\n\nGodavari is a heaven for those who love watching butterflies. Godavari and its surroundings are considered a butterfly hotspot, home to over 300 species of butterflies, including some of the rarest and most beautiful ones. The best time to visit Godavari for butterfly watching is from March to September when the butterflies are most active.\n\nThe Godavari area is also home to various bird species, making it a paradise for bird watchers. Besides its natural beauty, Godavari is also a culturally significant place. It is home to the Godavari Kunda, a sacred pond that is believed to be the source of the Godavari River. The pond is surrounded by several temples and shrines, making it a popular pilgrimage site for Hindus.\n\nI have visited Godavari several times, and every time, I am captivated by the beauty of the butterflies. Here are some of the butterfly species I encountered during my visit:\n\n- Peacock Pansy (Junonia almana)\n- Common Leopard (Phalanta phalantha)\n- Striped Tiger (Danaus genutia)\n- Common Jezebel (Delias eucharis)\n- Common Crow (Euploea core)\n- Lime Butterfly (Papilio demoleus)\n- Common Emigrant (Catopsilia pomona)\n- Tawny Coster (Acraea terpsichore)\n- Common Grass Yellow (Eurema hecabe)\n- Chocolate Pansy (Junonia iphita)\n- Great Eggfly (Hypolimnas bolina)\n- Common Bluebottle (Graphium sarpedon)\n- Common Mormon (Papilio polytes)\n\nIf you love butterflies, I strongly recommend you visit the Godavari Botanical Garden. It's a place where you can lose yourself in the beauty of nature and forget about the worries of the world.\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/20230126_090712.jpg?w=388)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910130547.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910125525.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910125452.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910124600.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910123437.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910121621.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910114644.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910114207.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910113937.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910113657.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220910130327.jpg?w=1024)\n---\n---","draft":false},{"id":11,"title":"Butterfly from Limba Panchthar","category":"blog","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"Butterflies are one of the most beautiful creatures of nature.While some of the people are   fascinated by its beauty,others seek their future in this field.Som","content":"Butterflies are one of the most beautiful creatures of nature.While some of the people are   fascinated by its beauty,others seek their future in this field.Some see the butterfly collection as their hobby whereas some get inspired and create poems in its admiration. Moreover,butterflies are one of the crucial insects with a number of benefits.They are one of the best pollinators.They help in pollination as they feed on nectar.Furthermore,butterflies are indicator of healthy environment.They also promote the tourism.Numbers of Tourism boards around the globe have managed  butterfly watching travels.In fact, many tourists have been coming to Nepal just for butterfly observation.According to the official sources, 660 species(some says 651)of butterflies are discovered in Nepal.\n\n## Scientifically,butterflies are placed in- Kingdom:Animalia\n- Phylum:Arthropoda  \n- Class:Insecta\n- Order:Lepidoptera\n- Suborder:Rhopalocera (source:[wikipedia](https://en.wikipedia.org/wiki/Butterfly))  \n\nI am a student who has completed Bachelor Degree in Zoology and Chemistry.Being a student of science background,I am inquisitive and interested in collecting photographs of different species of butterflies.It gives me pleasure and wisdom recognizing different species of butterflies in my surroundings.The curiosity was ignited at the end of the first lockdown.I had gone to my hometown and had captured some beautiful photographs of different butterflies.It slowly developed into my new hobby and I discovered myself as a butterfly lover.In this blog,I will include some pictures of different species of butterflies that I managed to capture at my hometown.    \n\nMy hometown Limba is located in Miklajung mucipality,Panchthar district of province-1, eastern Nepal.It lies at an elevation of 1790 m above the sea level.Most of the butterflies were photographed in the months of  September,October and November 2020 ,while other from October 2021 and some were in April,May and October 2022.  \n\n## **List of butterflies:(All the images belong to me)**\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20200922105239.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20220610_074545.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20200922113007.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20200924144259.jpg?w=768)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20200924144609.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211008122036.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20200925151126.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20201231_192818.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20200926091528.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20210801_125207.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201002075628.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201002122819.jpg?w=768)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-49-02-66_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003112214.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003113236.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003114037.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20210801_124753.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003114227.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-23-21-05_1c337646f29875672b5a61192b9010f9.jpg?w=717)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211021112249.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003114620.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003115312.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003115519.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003134040.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-51-49-59_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20201007_163340.jpg?w=899)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201110104947.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008111404.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201010155449.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201011101319.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201010154538.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201014130328.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201018114531.jpg?w=768)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201026115207.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201101155643.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20210801_124950.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20201225_170926.jpg?w=853)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201101111005.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201102112318.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201103111818.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201104141043.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201110105157.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201111084445.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201111091620.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20201111_133501.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img2020111112325728129.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201111125245-1.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201111125610.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-51-03-63_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201119123943.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211008123040.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20211009_133354.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211013093540.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211021134348.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211022115650.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211023110028.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211023113832.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211023120555.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211023121114.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211023154057.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211024105154.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211023135407.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211024114840.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-37-57-71_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20220408_1453307e2.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220416102757.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220417150425.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220429100018.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-29-45-40_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220509064743.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20221011132515.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20221013121545.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20230128_180424.jpg?w=720)  \n\nI am a newby not a butterfly specialist.I have a lot to learn and discover.Because of my limited knowledge in this subject some of the species are either not identified or misidentified.If you have any ideas or suggestions please feel free to comment.I would be grateful for all the advice,correction and guidance.Thankyou!  \n\n# theflowerofmountain","draft":false},{"id":12,"title":"रातमा फूल्ने क्याक्टस","category":"blog","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"यो प्लान्ट क्याक्टस प्रजातिमा पर्छ। बर्षमा एकचोटी एकरातको लागि मात्र फूल्छ। रातमा फूल्छ अनि बिहान ओइलाउछ। साँझदेखि फक्रीन थाल्छ अनि मध्यरातसम्म पुरै फक्रीन्छ र ","content":"यो प्लान्ट क्याक्टस प्रजातिमा पर्छ। बर्षमा एकचोटी एकरातको लागि मात्र फूल्छ। रातमा फूल्छ अनि बिहान ओइलाउछ। साँझदेखि फक्रीन थाल्छ अनि मध्यरातसम्म पुरै फक्रीन्छ र बिहान घाम छिप्पिदै गएसँगै ओइलाउदै जान्छ।  यसको बास्ना एकदम मीठो गम्किन्छ। हाम्रो घर अगाडि बर्षौदेखि यसको बोट हुर्किदै थियो, सानो छदा म आफैले रोपेकी हुँ। यद्यपि यसको फूल हेर्ने मौका मैले पाएको थिइनँ, कारण चाहिँ यो फूल्ने सिजनमा म घरमा हुन्नथेँ। यो फूल चैत अन्तिम नत्र बैशाखको सुरुवाततिरबाट फूल्न थाल्छ। कोपिला लागेपछी पनि निकै समय लाग्छ फूल्नलाई। यसलाई हुर्कन त्यस्तो बिशेष स्याहारसंभार केही चाहिदैन।  \n\n\nपोहोरसाल आमालाई मैले यसको फूल हेर्ने इच्छा भएको र कैले फूल्छ भनि पर्खिरहेको कुरा सुनाउदै थिएँ। यत्तिकैमा गाउको बोजु आइपुग्नु भो। बोजुको भनाइअनुसार चै यो क्याक्टसले घरमा आइपर्ने दु:ख, बिमार, संकट देख्छ रे! घरमा कोहि बिरामी हुनेछ या केही अनिष्ट हुनेछ भने यसको बोट कच्र्याककुच्रुक्क पर्छ रे। अनि घरमा सुख, शान्ति, प्रगति हुनेछ भने यसको बोट सर्लक्क परेर हुर्कन्छ रे! यसको बोट घरको धुरी नाघेर अग्लियो भने त्यो एकदम राम्रो संकेत हो रे!  \n\nपहिले यो प्लान्ट उहाँ बोजुकै घरमा थियो। हामिले पनि उहाँकै घरबाट ल्याएर सारेको हो। उहाँ भन्दै हुनुन्थ्यो, “मेरो सासुले यो फूल पाहुना जादा चारखलबाट ल्याएको रे! अहिले हाम्रो घरमा त मासियो।” अनि आमासँग यसको बोट माग्नुभयो। आमाले एउटा सानो बोट हसियाले काटेर काडा नबिझोस् भनेर बोराले बेरिदिनुभयो।\n\nफेरि बोजुले सुनाउनुभो यसको काडाको राज। यसको काडा एकदम धेरै हुन्छ, बिझ्यो भने काडाको टुप्पामात्र बिझ्छ, पुरै काडा बिझ्दैन। अनि काडा चै घाउ पाकेर निस्के मात्र हो। एकएक गरेर निकाल्न असम्भव जस्तै हुन्छ। काकिले भन्नुभाको मुन्धुम चै यसको काडा बिझ्यो भने सुनको सियोले मात्र निकाल्न सकिन्छ भनेर उहिलेको बुढापाकाहरुले भन्नुहुन्थ्यो रे!   \n\n \n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/20230127_041715.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-18-01-01-87_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-18-00-40-00_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-18-00-32-47_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415183342.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/image_editor_output_image835167625-1674872145719.jpg?w=450)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-59-27-48_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-59-49-67_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220416194929.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415214801.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415214723.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415214525.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220415214839.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-18-00-17-74_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n---","draft":false},{"id":13,"title":"छुनु र मुनु","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"शितको थोपा","content":"शितको थोपा  \nनिर्दोष र निश्चल  \nउस्तै मुनु छ!\n\nशिर्शिर हावा  \nशितल र चन्चल  \nमायालु मुनु!\n\nनीरस मन  \nरुझाउछ मायाले  \nपगाल्छ मन!\n\nबाँझो बारिमा  \nरमाउछ साथमा  \nछुनु र मुनु!\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20201003063537.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220304133653.jpg?w=857)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-27-09-02-48-54_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-27-09-02-57-81_1c337646f29875672b5a61192b9010f9.jpg?w=720)","draft":false},{"id":14,"title":"गन्तव्य भेट्ने हतार","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"गन्तव्य भेट्ने हतार","content":"गन्तव्य भेट्ने हतार  \nमलाई पनि छ!  \nतर बादलबाट  \nथोपा भइ बर्षिनु अनि  \nखोलासँग मिसिएर  \nनदिसँगै बग्दै  \nसमुन्द्र भेट्नु  \nमेरो तरिका  \nबिल्कुलै होइन!\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20201003132945.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img_20201003_162201.jpg?w=461)  \n\n*photo by self*\n# theflowerofmountain","draft":false},{"id":15,"title":"धोखेबाज म","category":"blog","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"उ आयो,","content":"उ आयो,  \nमलाई धोखेबाज करार गरेर गयो!  \n  \nकारण,  \nउसलाई मेरो शब्दहरुसँग प्रेम थियो।  \nअफसोस! मैले लेख्न छोडिदिएँ।  \n\n# theflowerofmountain","draft":false},{"id":16,"title":"एउटा समय","category":"blog","tags":["theflowerofmountain","poem"],"date":"2024-08-16","excerpt":"A poem of love","content":"A poem of love  \n\nएउटा समय थियो  \nतिम्रो उपस्थितिमा  \nमैले बहुतै सुकुन पाउथेँ।  \nटाढैबाट तिमिलाई हेर्थेँ र  \nमनमनै मुस्कुराउथेँ!  \nतिम्रो एक झल्को देख्नुमा  \nजुन खुशी थियो त्यो  \nअन्त कतै थिएन।\n\nतर के थाहा नजिकिए पछी  \nफेरि दूरी पनि बढ्छ भनेर!  \nके थाहा तिमिलाई हेर्न  \nपर्खिरहने यी आँखाहरु  \nएकदिन तिम्रै कारणले  \nबर्खेझरी जस्तै दर्किन्छन् भनेर।  \nसाच्चै! मलाई के थाहा  \nएकदिन तिम्रो उपस्थितिमा  \nमलाई सास फेर्न पनि  \nगाह्रो हुनेछ भनेर!\n\nकहिलेकाही याद गर्छु  \nती बितेका दिनहरु अनि  \nमलाई फेरि एकचोटि  \nपहिलोपटक तिमिसँग  \nभेट्न मन लाग्छ!  \nतिमिलाई पहिलोपटक  \nदेख्दा धड्किएको यो मुटु,  \nतिमिसँग पहिलोचोटि  \nबोल्दा मुस्कुराएका  \nयी ओठहरु!!  \nयी सबै सबै मलाई  \nफेरि एकपटक  \nमहसुस गर्न मन लाग्छ।\n\nअब एकचोटि  \nअन्तिमपटक  \nयसो गरौँ न!  \nहामी फेरि एकपटक  \nपहिलेजस्तै अन्जान बनौँ न  \nहुन्न र?!  \nके थाहा हुर्कन नपाउदै  \nओइलिएको मेरो प्रेम  \nयसपटक ढकमक्क फूलेर  \nमगमगाउला कि!\n\nयसपटक म आफुमा  \nअलि धेरै बिश्वास अनि  \nतिमिमा अलि थोरै  \nआसा र भरोसा राख्नेछु।  \nके थाहा यसपटक  \nतिमिलाई प्रेम गर्न हिडेकी म,  \nमलाई प्रेम गर्ने तिमिसँगै  \nभेटिउँला कि ?  \nहामी फेरि एकपटक  \nसुरुवातभन्दा परदेखि  \nसुरु गरौँ न!  \nहुन्न र??","draft":false},{"id":17,"title":"Short and Sweet","category":"poem","tags":["theflowerofmountain","shorts"],"date":"2023-08-16","excerpt":"फेरि एकचोटि तिम्रो आँखामा  बिझाउन मन छ!","content":"## फेरि एकचोटि…  \nफेरि एकचोटि तिम्रो आँखामा  बिझाउन मन छ!   \nआँखाबाट बगेर छातिमा आइ निदाउन मन छ!  \n  \n## आरोप लाउदैछौ रे!  \nआरोप लाउदैछौ रे मैले निकालेँ भनेर         महफिलबाट!  \nतिमी आफै आँसु बनी निस्किएको हौ मेरो दिलबाट!!  \n\n##  कसरी बयान गरुँ म…  \nकसरी बयान गरुँ म शब्दमा,  \n\nआखाँहरु थाकेर पनि रातभर  ननिदाउनुको पिडा?!  \n\n## पीडा दिन छोडिसकेँ  \nमाया लाएर आफुलाई पीडा दिन छोडिसकेँ मैले!  \n\nमलाई बर्बाद गर्नु छ भने छोडिदेउ तिमी पनि यो पुरानो तरिका।  \n\n## एउटै पिर छ…  \nएउटै पिर छ,  \n\nजब तिम्ले दिएको पिडाहरु दुख्न छोड्छ तब म  “म” रहन्नँ कि भन्ने!  \n\n\n# theflowerofmountain","draft":false},{"id":18,"title":"फूल","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-17","excerpt":"आज फूलेर","content":"आज फूलेर  \nभोलि ओइलि जाने  \nफूलको जुनी!  \n\nहासिरहने  \nत्यो गुलाबको पनि   \nआफ्नै ब्यथा छ!  \n\nप्रेमिल ॠतु  \nफूल झै तिम्रो दिल  \nमगमग म!  \n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20200922105353.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20200927063117.jpg?w=1024)","draft":false},{"id":19,"title":"फूलहरुसँग कुराकानी","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"यसपाली","content":"यसपाली  \nम घर आउन   \nथोरै ढिला के भएको थियो,  \nती आरुका फूलहरु त  \nमदेखि रिसाएछन्!  \nअनि मलाई पर्खिदै नपर्खी  \nफूलेर पात पो भैसकेछन्!\n\nअनि त्यो आरुबखडाको  \nफूलले चाहिँ भन्दैथ्यो,  \nम आएपछी मात्रै फूल्ने  \nउसको धेरै इच्छा थियो रे!  \nतर उसलाई फल्नको निम्ति  \nसमयमै फूल्नु पनि जरुरी थियो रे!  \nअलि माथिल्लो डाली चाहिँ  \nखुशिले चिच्याउदै थिई  \nउ फूलेको बेला नै  \nम उसलाई हेर्न आइपुगेँ भनेर!\n\nअनि ती आलुचाको बोटहरुले  \nम आएको आभास  \nपाउनासाथ मेरै निम्ति  \nगमक्क फूलिदिएँ!  \nअनि आफ्नो फूलहरुमा  \nझुमाउन माहुरिहरु पनि बोलाए!  \nम आलुचाको बोटको  \nत्यो रुप देखेर मख्ख परेँ!  \nअनि माहुरिहरुको त्यो  \nसुन्दर नृत्य देखेर त  \nम झनै खुशी भएँ!\n\nअब मलाई  \nगुराँसको बोटको  \nहालखबर बुझ्नुथ्यो!  \nम सर्प्राइज दिन भनी  \nबिस्तारै गुराँसको बोट नजिक गएँ!  \nउ मलाई एक्कासी देखेर दङ्ग परि।  \nअनि मैले थोरै जिस्क्याउदै  \nउसलाई भनेँ,  \nयसपाली त तिमी ठुली भइछ्यौ!  \nउ लजाउदै मुस्कुराई,  \nढकमक्क फक्रीइ।\n\nफेरि मैले स्याउको बोटलाई  \nघुर्क्याउदै सोधेँ,  \nतिमी चाहिँ कहिले फूलिदिने नि?  \nउसले सदाझै  \nमाया मिसाएर मलाई  \nजवाफ दियो,  \n“भर्खर त तिमी घर आएकी छ्यौ!  \nम पनि आजै फूलिदिएँ भने  \nफेरि तिमी फर्किने दिनमा  \nकसको फूल हेरेर जान्छ्यौ?!”  \nमैले हासेरै उसलाई समर्थन दिएँ  \nमेरो बिदाइको फूल बनिदिने कुरामा।\n\nमैले स्याउको बोटलाई  \nदिनदिनै नियालिरहेँ।  \nउसले आफ्ना सबै पातहरु झारेर  \nनयाँ नयाँ कोपिलाहरु  \nसजाउन थाल्यो यसरी  \nजसरी दिनहरु बित्दै गैरहेथ्यो,  \nअनि म फर्किने दिन  \nनजिकिन थालेथ्यो।  \nनभन्दै म फर्किने दिनमा त  \nउ ढक्कमक्क फूलिसकेछ।\n\nआरु र आरुबखडाले  \nसाना-साना फलहरु फलाएछन्!  \nअनि आलुचा हरिया  \nपातहरुले सजिएछन्!  \nमैले गुराँसतिर पनि  \nएक नजर लगाएँ  \nअनि हिडेँ आफ्नो गन्तब्यतिर!\n\nतर मैले एकपटक पनि  \nपछाडी फर्केर हेरिनँ!  \nकिनकी मलाई थाहा थियो,  \nस्याउको फूलहरुले मलाई  \nबारिको डिलबाट हेरिरहेछन्!  \nर त्यतिबेलासम्म हेरिरहनेछन्,  \nजबसम्म मलाई  \nती बासका झ्याङहरुले  \nनदेखिने गरि छल्दैनन्!\n \n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-31-07-07_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-32-28-35_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/image_editor_output_image14093517-1674803954315.jpg?w=450)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20220226171814.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-30-59-31_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n---","draft":false},{"id":20,"title":"फूलमा मात्र होइन माया..","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"फूलमा मात्र होइन माया..","content":"फूलमा मात्र होइन माया..  \nफूलमा मात्र होइन माया पातमा पनि देखेँ!  \nजूनबिनाको अँध्यारो त्यो रातमा पनि देखेँ!  \n\n\n\nमायाले धन,सम्पती,उमेर,थर केही हेर्दैन रे!  \nतर फेरि छुट्नुपर्ने कारण जातमा पनि देखेँ  \n\nभन्नेले त भन्थे,सुखदुःखमा सँगै हुन्छ माया  \nतर साथ मात्र होइन मैले घातमा पनि देखेँ!","draft":false},{"id":21,"title":"Fungus","category":"blog","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"Do you know about the Fairy Inkcap ?","content":"Do you know about the Fairy Inkcap ? \n## Coprinellus disseminatus, the Fairy Inkcap\nA fungus, Coprinellus disseminatus, the Fairy Inkcap, also known as Fairies Bonnet, Trooping Inkcaps, and Trooping Crumble Cap. The species was given its current name in 1939 by Jakob Emanuel Lange. This mushroom is cosmopolitan in distribution and extremely delicate in nature. Also, it is saprobic and usually appears in very large trooping groups on rotten wood. It can be seen from August to November. Because of its fragility, people do not prefer to consume this wild mushroom even though it is edible and non-poisonous.\n\n### Classification:\n- **Phylum:** Basidiomycota\n- **Class:** Agaricomycetes\n- **Order:** Agaricales\n- **Family:** Psathyrellaceae\n\nIts body has a cap, gills, and stem. At a young stage, the caps are egg-shaped and pale or purely white in colour. Then it expands to bell-shaped and turns grey, which takes just two or three days, and then it begins blackening. The gills contain spores which turn from white to grey and then to black when spores get matured. The stem is thin, hollow, white in colour, and fragile.\n\n### Photographs:\n- Coprinellus disseminatus (Young stage)\n- Coprinellus disseminatus (Adult stage)\n\nIf you have any suggestions or advice, feel free to comment. Thank you!\n\n![Image 1](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121635.jpg?w=768)\n![Image 2](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121457.jpg?w=461)\n![Image 3](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121554.jpg?w=461)\n![Image 4](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121855.jpg?w=461)\n![Image 5](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121815.jpg?w=1024)\n![Image 6](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008122055.jpg?w=461)\n![Image 7](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008122004.jpg?w=1024)\n![Image 8](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008122704.jpg?w=461)\n![Image 9](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008122436.jpg?w=461)\n![Image 10](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008122641.jpg?w=1024)\n![Image 11](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008122449.jpg?w=1024)\n![Image 12](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121932.jpg?w=1024)\n![Image 13](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120849.jpg?w=768)\n![Image 14](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008115630.jpg?w=461)\n![Image 15](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008115620.jpg?w=1024)\n![Image 16](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120211.jpg?w=1024)\n![Image 17](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120250.jpg?w=1024)\n![Image 18](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120626.jpg?w=1024)\n![Image 19](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120634.jpg?w=1024)\n![Image 20](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120715.jpg?w=1024)\n![Image 21](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120857.jpg?w=768)\n![Image 22](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120720.jpg?w=1024)\n![Image 23](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121036.jpg?w=1024)\n![Image 24](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121054.jpg?w=1024)\n![Image 25](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121043.jpg?w=1024)\n![Image 26](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120315.jpg?w=1024)\n![Image 27](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120259.jpg?w=1024)\n![Image 28](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008115641.jpg?w=1024)\n![Image 29](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008115853.jpg?w=1024)\n![Image 30](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008115938.jpg?w=768)\n![Image 31](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008115958.jpg?w=1024)\n![Image 32](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008115953.jpg?w=1024)\n![Image 33](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120145.jpg?w=1024)\n![Image 34](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120158.jpg?w=461)\n![Image 35](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008115932.jpg?w=768)\n![Image 36](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120130.jpg?w=461)\n![Image 37](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008120954.jpg?w=1024)","draft":false},{"id":22,"title":"Haiku","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"हरियो रंग","content":"हरियो रंग  \nजिवनको प्रतिक  \nआहा! प्रकृती।  \n\nसुन्दर दृश्य  \nताजगी एहसास  \nमनै लोभिने!  \n\nपानीमा प्राण  \nपातमा सुन्दरता  \nनफूल्ने जात!  \n\nपातको रंग  \nमनमोहक दृष्टि  \nलोभियो आँखा!  \n\nहरियो चोला  \nअनुपम सौर्न्दर्य  \nलठ्ठ बनायो!!  \n\nबसन्त भुल्ने  \nअद्भुत सुन्दरता  \nहेरिरहुँझै!  \n\n#theflowerofmountain\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20200723175655.jpg?w=1022)  \n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20200723175605.jpg?w=1022)","draft":false},{"id":23,"title":"पारिजात","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"बर्खाको झरी","content":"बर्खाको झरी  \nबतास र असिना  \nसहेर फूल्छु!\n\n\nपारिजात हुँ  \nमन पर्दैन सुर्य  \nधोकाको स्पर्श!\n\nघात गर्छन  \nजो प्रेमको नाममा  \nम माफी दिन्नँ!\n\nरातमा फूल्छु  \nबिहानै ओइलिन्छु  \nरातकी रानी!\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-27-09-03-40-55_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-27-09-03-45-85_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n---","draft":false},{"id":24,"title":"हाइकु-2","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"दर्किन्छ पानी","content":"दर्किन्छ पानी  \nगर्जदै आसमान  \nबर्खे झरिमा! \n\nचुहिन्छ छानो  \nज्यान जाला जस्तो छ  \nपहिरोसँगै!\n\nखहरे भेल  \nबगाउला झै गरि  \nउर्लेको हेर!\n\nधमिलो खोला  \nबाढिले डुबाउला  \nजन र बाली!","draft":false},{"id":25,"title":"क्षितिज: एक भ्रम","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"अचेल रात","content":"अचेल रात  \nअँध्यारो लेर आउँछ  \nमलाई साथ दिन  \nजून चादनी लेर आउँछ  \nमलाई चम्काउन  \nअनि ताराहरु उदाउछन  \nमलाई सजाउन  \nबादलहरु डुलिरहन्छन  \nजुनकिरी झुमिरहन्छन  \nमेरै वरिपरि  \nत्यो आकाश  \nसुन्दर नजारा लिएर  \nमलाई लोभ्याईरहन्छ,  \nअनि त्यो क्षितिज छ एक  \nजो सधै मलाई भ्रम मा राख्छ  \nआकाश छुने सपना देखाउछ!!\n\n#theflowerofmountain","draft":false},{"id":26,"title":"कसरी साट्न सक्छु र..","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"कसरी","content":"कसरी  \nसाट्न सक्छु र म  \nयो मन  \nगुलाबका गुच्छा र  \nसुनको औँठी ल्याउनेसँग?!  \nमैले त पहिले नै  \nयो मन उसलाई  \nसुम्पिएकी छु,  \nजसले मेरो खुट्टाको  \nऔलाहरु चुम्दै  \nछमछम बज्ने  \nपाउजु ल्याइदिने  \nबाचा गरेर गएको छ!  \n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img_20200906_055842-1.jpg?w=1022)","draft":false},{"id":27,"title":"म चाहान्छु…","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"म चाहान्छु हरेक रात दिनभन्दा लामो होस्!","content":"म चाहान्छु हरेक रात दिनभन्दा लामो होस्!\n\nताकि भोलि दिनभरी पीडा लुकाएर  \nदुनियाँसामु हास्नलाई पुग्दो रुन सकुँ म!","draft":false},{"id":28,"title":"झरी दर्किएको रात","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-17","excerpt":"मेरो प्यारा!","content":"मेरो प्यारा!\n\nमैले अन्तिम सास  \nलिएको प्रहरदेखी  \nमेरो चिता खरानी  \nनभैन्जेलसम्म  \nबिन्ती तिमिले  \nआँसु नझारिदिनु!\n\n\n\nकिनकी तिम्रो एकथोपा  \nआसुले मेरो चिता नजल्न सक्छ  \nतिम्रो एक थोपा आसुले  \nमेरो जलिरहेको चिता निभ्न सक्छ  \nअनि दुनियाँले मलाई भन्नेछन् फेरि  \nम मान्छे राम्रो थिइनँ भनेर!  \nजुन तिमि कदापि सुन्न सक्नेछैनौ।\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/image_editor_output_image1854307267-1674792115907.jpg)","draft":false},{"id":29,"title":"मरेका इच्छाहरु","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-17","excerpt":"मरेका इच्छाहरु","content":"मरेका इच्छाहरु  \nयसपालिको झरिले  \nमनमा यसरी  \nपहिरो ल्याइदिएको छ कि  \nमलाई फेरि  \nएकपटक  \nतिमिलाई हेर्दै  \nअन्तिम सास लिने  \n\nचाहना जागेको छ!  \nखै किन हो किन,  \nयो झरिले मरेका इच्छाहरु  \nफेरि ब्युझाइरहेको छ!\n\n#theflowerofmountain","draft":false},{"id":30,"title":"अचानो र जिन्दगी","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"के फरक छ र","content":"के फरक छ र  \nत्यो अचानो र यो जिन्दगीबिच?  \n\nजबजब काममा आउँछ त्यो अचानो  \nचोट नै खाइरहन्छ!  \nअनि जबजब अस्तित्वमा आउछ यो जिन्दगी चोट नै पाइरहन्छ!  \n\n#theflowerofmountain","draft":false},{"id":31,"title":"अन्तिम गन्तव्य:स्वतन्त्र","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"रुखबाट झरेको पातजस्तो अनि","content":"रुखबाट झरेको पातजस्तो अनि  \nशरिरबाट निस्किएको आत्माजस्तो,\n\nअन्त्यमा सबै स्वतन्त्र हुनेछन्!!","draft":false},{"id":32,"title":"Longtime","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"धेरै भयो","content":"धेरै भयो  \nतिम्रो र मेरो  \nबोलचाल बन्द भएको!  \nएकचोटि सपनिमा  \nआइदेउ न प्रिय!!  \nम तिमिलाई  \nहेरेर मुस्कुराउछु,  \nअनि तिमि पहिलेझै  \nत्यो मुस्कानमा फिदा भैदिनु!!!","draft":false},{"id":33,"title":"Look","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"हेर्नुस् म त…","content":"हेर्नुस् म त…    \nहेर्नुस्! म त कवि मान्छे,बिना बर्षात् पनि रुझ्छु    \nअलि पागल छु,पानी परे आकाश रोएको बुझ्छु    \n  \n#theflowerofmountain","draft":false},{"id":34,"title":"if i won the lottery…","category":"blog","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"---","content":"# **I would pay the taxes….and donate the rest….** \n\n\n\n---","draft":false},{"id":35,"title":"प्यारभन्दा प्यारो","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"म चाहन्थेँ","content":"म चाहन्थेँ  \nमलाई फेरि  \nकसैसँग कहिल्यै  \nप्रेम नहोस्!\n\nतर तिमी छौ नै बिशेष!  \nप्यारभन्दा प्यारो  \nमहसुसभन्दा मीठो  \nसासभन्दा खास  \nजिन्दगीभन्दा प्रिय  \nअनि तिमिसँग  \nप्रेम नहोस् यो  \nकसरी सम्भव होला र?!\n\nआज तिम्रो नामको  \nहरेक अक्षरहरुसँग प्रेम छ  \nहरेक अर्थसँग प्रेम छ  \nतिम्रो नामको प्रत्येक  \nपर्याय खास लाग्छ  \nअनि तिम्रो नामसँग  \nजोडिएर आउने  \nहरेक शब्दहरु  \nमलाई असाध्यै मनपर्छ।\n\nम मौनतामै  \nतिम्रो नाम  \nपढिरहेकी हुन्छु।  \nतिम्रो नाम  \nलिइरहेकी हुन्छु।  \nतिमी सुन्छौ कि  \nसुन्दैनौ प्यारा?  \nम मनबाटै  \nतिमिलाई  \nबोलाइरहेकी हुन्छु!\n\ni am in love with you 💞\n\n#theflowerofmountain\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20221027131438_burst001_cover.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/image_editor_output_image1935596125-1674804495942.jpg?w=413)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20201129133633.jpg?w=462)","draft":false},{"id":36,"title":"अघि पछि न हो मरण","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-17","excerpt":"अगाडि-पछाडि न हो, मरण सबैको पालैपालो हुन्छ।","content":"अगाडि-पछाडि न हो, मरण सबैको पालैपालो हुन्छ।  \nबाचुन्जेल कमायो, मर्दा लैजाने तेइ टालो हुन्छ। \n\nबिषेक हुँदैन कहिल्यै जति पुरानो उति दुखाउने  \nके सुक्थ्यो र दिलको घाउ हमेशा आलो हुन्छ।\n\nआफ्नो मान्छे आफ्नै ठानी हालखबर सोध्नुपर्छ  \nनत्र के थाहा? आजकल त सम्बन्धमै जालो हुन्छ।","draft":false},{"id":37,"title":"मौन म","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"मौन बसिदिन्छु,","content":"मौन बसिदिन्छु,  \nपिडाको कर्कश आवाजले  \nमनमस्तिष्क अशान्त बनाइदिन्छ!  \nउथलपुथल भैदिन्छु!  \nअनि फेरि  \nकेही क्षणमै,  \nएक हुल भावनाहरुको आवेगले  \nमन अस्थिर बनाईदिन्छ!  \nतर पनि म मौन बसिदिन्छु  \nगाली गर्छु आफैलाई  \nमौन बसेर मनमनै मौनताभित्रै  \nअनि त्यही पुग्छु जहाँ म मौन थिएँ  \nअनि फेरि मौन बसिदिन्छु!  \nम!","draft":false},{"id":38,"title":"Moths","category":"blog","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"Many people often get confused between moths and butterflies.","content":"Many people often get confused between moths and butterflies.\n \n## My Moth collection\nMoths are insects of the lepidoptera order which look like butterflies. Many people often get confused between moths and butterflies. Moths are usually nocturnal (some species are day-flying) whilst most butterflies are diurnal. Moths have feathery antennae and unclubbed ends, while butterflies have slender antennae and clubbed ends. Moths are mostly dull and mundane-colored, whereas butterflies are bright in colour. In Nepal, the studies and research of moths have not been much significant. Only 129 species (according to Wikipedia) are listed.\n\nIn this blog, I am going to list out the photos of those moths which I captured when I was in my hometown Miklajung-7, Limba, Panchthar district, East Nepal. It lies at an elevation of 1790m high from sea level.\n\n### List of moths:\n- Lebeda nobilis, commonly known as the tea-oil caterpillar moth\n- The blood-vein (Timandra comae)\n- The Brown-striped semilooper, (Mocis undata)\n- Spoladea recurvalis, sometimes known by the common name Beet Webworm Moth or Hawaiian Beet Webworm\n- Ambiguous Moth (Lascoria ambigualis)\n- Genus Herpetogramma\n- Creatonotos transiens, Clouded Tiger Moth\n- Chiasmia fidoniata\n- Genus Ataboruza\n- Genus Sarbine\n- Nyctemera adversata, Marbled White Moth\n- Artona hainana\n- Episteme adulatrix, Blue-spotted Forester Moth\n- Genus Dasychira\n- Genus Prorifrons\n- Genus Berta\n- Problepsis albidior\n- Ethmia clytodoxa\n- Dichromia orosia\n- Cleora alienaria\n- Erebus caprimulgus\n- Genus Sphrageidus\n- Geometer moths\n- Genus Euricania\n- Genus Amata\n- Genus Maruca\n- Genus Gazalina\n\nSome of the species are not identified and may be misidentified. This is because the sources were not sufficient, and my knowledge on this subject is not enough. I am still learning and exploring, and I will be very grateful for your corrections, advice, and comments. Keep loving, keep supporting. Thank you!\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20200928_085657-1.jpg?w=546)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20221028191510-1.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-35-09-37_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-35-19-51_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-40-53-84_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-41-09-63_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-44-04-42_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-44-17-98_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-44-25-78_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-44-52-18_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-49-14-75_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-49-30-65_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-49-48-52_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-49-51-98_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-49-57-28_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-50-00-41_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220305052122-1.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20200921074350-1.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201002121051-1.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003131309-1.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20201006_103531-1.jpg?w=1003)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201107070922-1.jpg?w=768)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201109070654-1.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201119125744-1.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20210322080218-1.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20210325055624-1.jpg?w=461)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20210325123234-1.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20210324131333-1.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201110091323-1.jpg?w=1024)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20230205_164504-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20230205_164533-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20230205_164610-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20230205_164637-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20230205_164700-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20230205_164802-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20230205_164851-1.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img_20230205_171338-1.jpg?w=720)\n![](https://1.gravatar.com/avatar/a774ded4e924348d4c2f530ad871424a08c5f0abfaba0fd891069d6333bfcd6f?s=80&d=identicon&r=G)\n---","draft":false},{"id":39,"title":"Mushroom","category":"blog","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"There are different species of mushrooms found in the wild. Some of these are edible, while others  are poisonous. Mushrooms come in various colors, adding magn","content":"There are different species of mushrooms found in the wild. Some of these are edible, while others  are poisonous. Mushrooms come in various colors, adding magnificent beauty to nature. They never fail to sway my excitement with their appearance, and every time I observe them, I capture their beautiful pictures. Mushrooms are well-known for their beauty, as a food source, for their healing capabilities, and sometimes for the deadly poisons they contain. But have you observed many of these species? For sure, here are…\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211103123145-1.jpg?w=1022)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211026083912-1.jpg?w=1022)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211008090319-1.jpg?w=1022)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20210724081737-1.jpg?w=461)\n\n![Image 1](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211103123145-1.jpg?w=1024)\n![Image 2](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211026083912-1.jpg?w=1024)\n![Image 3](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20211008090319-1.jpg?w=1024)\n![Image 4](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20210724081737-1.jpg?w=461)\n![Image 5](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201013055751-1.jpg?w=461)\n![Image 6](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201022151312-1.jpg?w=1024)\n![Image 7](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008125540-1.jpg?w=1024)\n![Image 8](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008123023-1.jpg?w=1024)\n![Image 9](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008122140-1.jpg?w=1024)\n![Image 10](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008121154-1.jpg?w=1024)\n![Image 11](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201002074048-1.jpg?w=768)\n![Image 12](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20200929124627-1.jpg?w=1024)\n![Image 13](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008124836-1.jpg?w=1024)\n![Image 14](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201008124846-1.jpg?w=1024)\n![Image 15](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20201003131712-1.jpg?w=1024)\n![Image 16](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-20-04-43-58_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 17](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-20-04-04-69_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 18](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-20-04-00-47_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 19](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-58-08-31_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 20](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-57-56-22_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 21](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-57-48-91_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 22](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-57-31-28_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 23](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-57-15-65_1c337646f29875672b5a61192b9010f9-1.jpg?w=711)\n![Image 24](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-57-08-46_1c337646f29875672b5a61192b9010f9-1.jpg?w=717)\n![Image 25](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-55-13-78_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 26](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-54-16-36_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 27](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-54-08-61_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 28](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-53-44-17_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 29](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-17-55-41-96_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 30](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/screenshot_2023-01-26-19-53-01-34_1c337646f29875672b5a61192b9010f9-1.jpg?w=720)\n![Image 31](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/02/img20220928150608-1.jpg?w=1024)\n![Gravatar Image 1](https://1.gravatar.com/avatar/a774ded4e924348d4c2f530ad871424a08c5f0abfaba0fd891069d6333bfcd6f?s=80&d=identicon&r=G)","draft":false},{"id":40,"title":"फेरि नाता गास्ने","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-17","excerpt":"फेरि नाता गास्ने रहर थिएन","content":"फेरि नाता गास्ने रहर थिएन  \nफेरिफेरि नाता गास्ने रहर थिएन यार!  \nसधैलाई माया मार्न जहर थिएन यार!\n\nमन त थियो मलाई प्रेमबाट टाढै रहन,  \nतर उसंग प्यारै नहुने सहर थिएन यार!\n\nबारबार धोका हुदा कसलाई के भन्नू र?  \nपलाएको भावनासंग कहर थिएन यार!\n\nनशामा गजल लेख्दा कबिता बन्नपुग्यो,  \nमेरो भाव कोर्दा मिल्ने बहर थिएन यार!","draft":false},{"id":41,"title":"Onetime","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"एउटा पुरानो","content":"### एउटा समय थियो…\n\nएउटा पुरानो  \nसमय थियो  \nतिमिलाई मेरो  \nहरेक कुरा मनपर्थ्यो!  \nथाहा छैन म  \nकतिबर्ष यस्तै भ्रममा बाचेँ!  \nतर जब थाहा भयो  \nतिमिलाई त बर्षौपहिलेदेखि नै  \nअरु कोहि मन पर्न थालेछ,  \nत्यसपछी मलाई  \nसबथोक व्यर्थ लाग्न थाल्यो!  \nर त तिमिलाई मनपरेको  \nत्यो लामो केस  \nत्यो हासो  \nत्यो मन अनि जिन्दगी  \nसबैसबै मैले त्यागिदिएँ!!!\n\n#theflowerofmountain","draft":false},{"id":42,"title":"पुतली","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"देख्दा पुतली","content":"देख्दा पुतली  \nफूलसंगै हासेको  \nहर्षित हुन्छु!  \n\nपुतली बस्यो  \nसयपत्री फूलमा  \nतिहार आयो!  \n\nफूलको थुंगा  \nतिर्खाएको पुतली  \nबैसालु मात!\n\n---\n\n### पुतलि\n\nसानी पुतली  \nपरि झै प्रकृतिमा  \nप्रेम छर्छिन!\n\nडालिडालिमा  \nप्रेम लिला रचाइ  \nचुम्छिन फूल!\n\nयता र उता  \nबगैचा चहारेर  \nआयो पुतली!\n\nतिमी फूलझै  \nम आवारा पुतली  \nप्रेमिल जोडि!\n\n#theflowerofmountain\n\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/image_editor_output_image-1519811219-1674809850997.jpg?w=450)\n     \n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-50-18-43_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-50-38-96_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-47-44-88_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-24-38-18_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-26-09-93_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-28-16-77_1c337646f29875672b5a61192b9010f9.jpg?w=720)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-26-17-29-45-40_1c337646f29875672b5a61192b9010f9.jpg?w=720)","draft":false},{"id":43,"title":"सुनेकी हुँ रात सधै","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-17","excerpt":"सुनेकी हुँ रात सधै एक्लै हुन्छ अरे!","content":"सुनेकी हुँ रात सधै एक्लै हुन्छ अरे!  \nदिनसँगको बिछोडमा सधै रुन्छ अरे!\n\n\n\nम पनि त एक्लै हुन्छु रात जस्तै एक्लै  \nउस्तै ब्यथा मिले पछि मन छुन्छ अरे!\n\nपोख्दा मैले वह आकाशको जूनलाई  \nरातको पीडा त्यो अँधेरिले सुन्छ अरे!\n\nदिन ढले पछि जून साथमा आए पनि  \nदिनबाहेक रात एक्लोपन नै चुन्छ अरे!","draft":false},{"id":44,"title":"सम्बन्ध जोड्दा","category":"poem","tags":["theflowerofmountain"],"date":"2023-07-16","excerpt":"कसैसँग सम्बन्ध तोड्दा या जोड्दा बस यति कुरा ख्याल गर कि  त्यो सम्बन्ध तोडेकोमा तिमिलाई कहिल्यै पछुतो नहोस् र जोडेको सम्बन्ध भोलिको दिनमा तिम्रो घाँटीको पासो नबन","content":"कसैसँग सम्बन्ध तोड्दा या जोड्दा बस यति कुरा ख्याल गर कि  त्यो सम्बन्ध तोडेकोमा तिमिलाई कहिल्यै पछुतो नहोस् र जोडेको सम्बन्ध भोलिको दिनमा तिम्रो घाँटीको पासो नबनोस!  \n\n\n# theflowerofmountain","draft":false},{"id":45,"title":"Roses","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"काडामा भाव","content":"काडामा भाव  \nफूलमा सुन्दरता  \nप्रिय गुलाब! \n\nसुन्दर फूल  \nकाडाको सिंहासन  \nफूलको राजा!\n\nगम्कन्छ उस्तै  \nदुई मन जोडेर  \nप्रीतिको फूल!\n\nशीत र बर्षा  \nसहेर फूलिदिन्छ  \nप्रेमका गुच्छा!!\n\nपापी छ फूल  \nमोहमा फसाउछ  \nनिर्दोष काडा!!\n\n#theflowerofmountain\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/20191012_065354-1.jpg?w=572)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/20191012_065451.jpg?w=572)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/20190820_071837-1.jpg?w=921)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/20190820_071517-1.jpg?w=905)\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/20190820_071857-1-1.jpg?w=795)\n![](https://1.gravatar.com/avatar/a774ded4e924348d4c2f530ad871424a08c5f0abfaba0fd891069d6333bfcd6f?s=80&d=identicon&r=G)","draft":false},{"id":46,"title":"You","category":"blog","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"जो मेरा हैं उसे अपना खुदका भी होनेका हक़ नहीं हैं!","content":"## जो मेरा है…  \nजो मेरा हैं उसे अपना खुदका भी होनेका हक़ नहीं हैं!  \nक्योंकि जो मेरा हैं वो सिर्फ़ औऱ सिर्फ़ मेरा हैं।  \n\n## छोड दो…  \nछोड दो प्यार और भरोसे कि बातें,  \n\nचलो इस बार बेइंतहा नफरत करते है एक दूसरे से!  \n\n## अगर…  \nअगर मुड़ कर देखना ही मोहब्बत हैं तो,  \nनदियां क़भी भी किसी से प्यार नहीं करतीं!  \n\n## प्रतीक्षा गर्नु तिमि  \nहरेक सासमा मेरै प्रतीक्षा गर्ने मान्छे तिमी!  \nतिम्रो चितालाई मेरो लाशको साथ मिलोस!  \n\n#theflowerofmountain\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/img20211015154647.jpg?w=461)","draft":false},{"id":47,"title":"सम्बन्ध र सामिप्यता","category":"poem","tags":["theflowerofmountain","shorts"],"date":"2024-08-16","excerpt":"जिन्दगीभरलाई साथ चाहनुहुन्छ भने","content":"जिन्दगीभरलाई साथ चाहनुहुन्छ भने  \nसुन्दरता होइन सामिप्यता निखार्नुहोस!  \n\nकिनकी यहाँ,  \nजून लाई हेरेर मान्छेहरु केवल केही रात   बिताउछन्,पुरै जिन्दगी होइन।","draft":false},{"id":48,"title":"नसकेको सपनामा…","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"जब झिसमिसे बिहानिमा","content":"जब झिसमिसे बिहानिमा  \nबुबा र आमाले   \nनिदाउदा देखेका  \nसपनाहरुको कुरा गरेको सुन्छु,  \nतब मलाई  \nमैले बिर्सन नसकेको  \nअनि तिमिलाई भन्न नसकेको  \nएउटा सपनाको याद आउँछ!  \nम निदाएकी मात्र थिएँ,  \nसपनामा मेरा दुश्मनहरु  \nमलाई जलाउन सल्बलाउदै थिए!  \nजुन भिडमा तिमी पनि सामेल थियौ  \nहातमा आगोको राँको लिएर!!\n\n#theflowerofmountain","draft":false},{"id":49,"title":"सपनामा मसानघाट","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"घुम्दै थिएँ मसानघाट","content":"घुम्दै थिएँ मसानघाट  \nदेखेँ दुइटा लास जलिरहेको  \nसँगसँगै थियो चिता  \nदुईटै आगोसँगै बलिरहेको!\n\nएक अन्जान घाटे मात्र  \nकोहि थिएन मलामी!  \nशरिरसँगै सबै सपना  \nहुदै थियो खरानि!!\n\nमैले हेरिरहेँ एउटा लास एकोहोरो  \nघाटे ले लास पोलिरहेथ्यो  \nत्यो लास त मेरै हो रे!  \nमलाई हेर्दै घाटे बोलिरहेथ्यो!\n\nब्युझेँ, अतालिदै आफैलाई प्रश्न गरेँ!  \n“कस्तो सपना हो यो?”  \nअनि म सँगै जलिरहेको अर्को लास!  \n“कस्को थ्यो त्यो??”\n\n#theflowerofmountain","draft":false},{"id":50,"title":"अनौठो लडाइ","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"कति अनौठो","content":"कति अनौठो  \nछ है यो लडाई?!  \nतिमी सजाय  \nपाएर आफ्नो  \nपापहरुबाट मुक्ती  \nपाउन चाहान्छौ अनि  \nम तिमिलाई सजाय  \nदिएर तिमी  \nआफ्नो कुकर्मबाट  \nआजाद भएको  \nहेर्नै चाहन्नँ!\n\nतिमी ती  \nदोषहरुबाट  \nछुटकारा पाउन  \nचाहन्छौ अनि म  \nती दोषहरुबाट  \nतिमि स्वतन्त्र भएको  \nहेर्नै सक्दिनँ  \nर त चाहेर पनि  \nम तिमिलाई घृणा गर्दिनँ!\n\n#theflowerofmountain","draft":false},{"id":51,"title":"साचो सुन्दरता","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"मलाई फिक्का रंगहरु","content":"मलाई फिक्का रंगहरु  \nबडो सुन्दर लाग्छ!  \nरंगिबिरंगी चम्किला  \nरंगहरु भन्दा  पनि धेरै सुन्दर!!  \nती फिक्का रंगहरुले दिने  \nशितलता अनि  \nती रंगहरुको  \nसरलता र शालिनता  \nबडो गज्जब लाग्छ!!  \nमलाई ती चम्किला रंगहरुझै  \nचम्किएर सबैको  \nनजरमा पर्नुभन्दा  \nफिक्का रंगझै कहिकतै  \nआफ्नै नजरले  \nसुन्दरता अर्थ्याउन मन लाग्छ!  \nसाच्चै कति सुन्दर हुन्छ  \nती फिक्का रंगहरुको सादगि  \nहै??","draft":false},{"id":52,"title":"टाढा छन् ताराहरु","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-17","excerpt":"टाढा छन् ती ताराहरु!","content":"टाढा छन् ती ताराहरु!  \nत्यसैले सुन्दर र शितल लाग्छन्। \n\nनजिक हुन्थे त जलाएर खरानी बनाउथे होलान्, जसरी नजिकिएकाहरुले बनाएर गए!!","draft":false},{"id":53,"title":"That time","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-16","excerpt":"Last time we talked,","content":"Last time we talked,  \nyou told me you moved on..  \neven though we weren’t together  \nthat time, I wasn’t gone…\n\nWhat news will you tell me  \nif we talk again??  \nyour marriage or anniversary??  \nI am afraid of pain..\n\nNo matter how badly  \nI want to talk with you…  \nmy fear of getting hurt  \nnever lets me do…\n\nI know we won’t meet although  \nwe live in this same world!  \nbecause now we have become parallel forever….\n\nLast time we talked,  \nyou were seeing someone..  \neven though we weren’t together  \nthat time, I wasn’t gone…\n\n#theflowerofmountain","draft":false},{"id":54,"title":"तिमि…","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"**..**","content":"**..**\n\nमैले धेरै कविताहरु  \nमनमा नै लेखेँ  \nमनमै पढेँ  \nअनि बिर्सिदिएँ।  \nन फेरि ती कविताहरु  \nकहिल्यै याद गरेँ!  \nन त कहिकतै  \nकसैलाई सुनाएँ।\n\nकाश!  \nतिमी पनि  \nती कविताहरुमध्ये  \nएक हुन्थ्यौ त  \nम तिमिलाई उहिल्यै  \nभुलिसक्थेँ  \nमनबाटै  \nसधैँ सधैँभरिलाई!!!\n\n\n\n\n{{< image src=\"https://biochemicalmind.wordpress.com/wp-content/uploads/2023/04/img20230322092121.jpg\" alt=\"Sample Image\" width=\"500px\" height=\"500px\" >}}","draft":false},{"id":55,"title":"तिमी प्यारको…","category":"poem","tags":["theflowerofmountain"],"date":"2024-08-17","excerpt":"प्यारको झोली थाप्नु म दिएझै गर्छु!","content":"प्यारको झोली थाप्नु म दिएझै गर्छु!  \nदिएर नि फेरि फिर्ता लिएझै गर्छु!  \n  \nदेखावटी न हो अचेल लभ सब,,  \nमुटु चिराचिरा पारेर सिएझै गर्छु!  \n\nतिमीले गर्नु धोकेवाज झै नाटक  \nम त्यो पिडामा नशा पिएझै गर्छु!","draft":false},{"id":56,"title":"टुक्रे","category":"blog","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"हाटबजार जादाफर्किदा बाटोमा खाजा खाने ठाउँ;","content":"### \n\nहाटबजार जादाफर्किदा बाटोमा खाजा खाने ठाउँ;  \nजसलाई हाम्रो गाउघरतिर “टुक्रे” भन्छन।जो प्राय ..  गाउँदेखि बजारसम्म पुग्दाको आधा बाटोमा हुन्छ।  \nहाटबजार टाढा पर्ने गाउहरुको लागि सुबिधा नै हुन्छ।  \nखाजा चै जाड,रक्सी,चटपटे,सेलरोटी,  \nतरकारी यस्तै पाइन्छ।अचेल गाडिको बाटो बनेदेखि मान्छेहरु हिडेर बजार जान छोडेसँगै टुक्रेहरु पनि हराउदै गएका छन्।\n\n#theflowerofmountain","draft":false},{"id":57,"title":"तिमी","category":"blog","tags":["theflowerofmountain"],"date":"2024-08-16","excerpt":"तिमी र मैले","content":"तिमी र मैले  \nहात समाएर  \nहिड्न बाकी एउटै बाटो    \n‘जिन्दगि’को थियो प्रिय! \n\nतर जब मैले बाटो मोडेँ,  \nतिमिले हात छोड्यौ  \nर त आज म यहाँ  \nअनि तिमी त्यहाँ!!  \nआशा छ,  \nकुनै मोडमा हाम्रो  \nभेट जरुर हुनेछ।  \nतर पक्का  \nहाम्रो सहयात्रा भने  \nफेरि कहिल्यै हुनेछैन!!!","draft":false},{"id":58,"title":"भावना…","category":"poem","tags":["theflowerofmountain"],"date":"2023-08-17","excerpt":"थाहा छैन","content":"थाहा छैन  \nम आज किन  \nयति धेरै भावनामा बगिरहेछु!  \nमलाई भावना बगेर  \n\nती पत्थरजस्ता  \nमन भएका मान्छेहरुसँग  \nठोक्किएर दुख्नुभन्दा  \nखोला भइ बगेर  \nपत्थरसँग ठोकिन मन छ!\n![](https://biochemicalmind.wordpress.com/wp-content/uploads/2023/01/screenshot_2023-01-27-09-02-36-06_1c337646f29875672b5a61192b9010f9.jpg)","draft":false}];
+
+const STORAGE_KEY = 'bukiphool_v2';
+const PER_PAGE = 12;
+
+let posts = loadPosts();
+let filtered = [...posts];
+let currentFilter = 'all';
+let currentSearch = '';
+let currentPage = 1;
+let currentPostIdx = 0;
+
+function loadPosts() {
+  try {
+    const s = sessionStorage.getItem(STORAGE_KEY);
+    if (s) {
+      const saved = JSON.parse(s);
+      // Merge: default posts first, then any locally added ones
+      const defaultIds = new Set(DEFAULT_POSTS.map(p => p.id));
+      const extra = saved.filter(p => !defaultIds.has(p.id));
+      return [...DEFAULT_POSTS, ...extra];
+    }
+  } catch(e) {}
+  return [...DEFAULT_POSTS];
+}
+function savePosts() {
+  try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(posts)); } catch(e) {}
+}
+
+// ── ROUTING ────────────────────────────────────────
+function showPage(name, extra) {
+  ['home','post','about','write'].forEach(n => {
+    const el = document.getElementById('page-' + n);
+    if (el) el.style.display = 'none';
+  });
+  document.querySelectorAll('.post-view,.about-view,.editor-view').forEach(el => el.classList.remove('active'));
+  const pg = document.getElementById('page-' + name);
+  if (pg) { pg.style.display = 'block'; pg.classList && pg.classList.add('active'); }
+  if (name === 'home') renderPosts();
+  if (name === 'post' && extra !== undefined) openPost(extra);
+  window.scrollTo(0,0);
+}
+
+// ── RENDER GRID ────────────────────────────────────
+function applyFilters() {
+  let result = [...posts];
+  if (currentFilter !== 'all') result = result.filter(p => p.category === currentFilter);
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    result = result.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      (p.excerpt||'').toLowerCase().includes(q) ||
+      (p.content||'').toLowerCase().includes(q) ||
+      (p.tags||[]).some(t => t.toLowerCase().includes(q))
+    );
+  }
+  return result.sort((a,b) => new Date(b.date) - new Date(a.date));
+}
+
+function renderPosts() {
+  filtered = applyFilters();
+  document.getElementById('post-count').textContent = posts.length;
+  const total = filtered.length;
+  const totalPages = Math.ceil(total / PER_PAGE);
+  if (currentPage > totalPages) currentPage = 1;
+  const start = (currentPage - 1) * PER_PAGE;
+  const visible = filtered.slice(start, start + PER_PAGE);
+  document.getElementById('showing-count').textContent = `${total} post${total !== 1 ? 's' : ''}`;
+  const grid = document.getElementById('posts-grid');
+  if (!visible.length) {
+    grid.innerHTML = `<div class="empty-state">No posts found. <a onclick="showPage('write')">Write one?</a></div>`;
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+  grid.innerHTML = visible.map((p, i) => `
+    <div class="post-card" onclick="showPage('post', ${start + i})">
+      <div class="post-card-arrow">↗</div>
+      <div class="post-card-cat">${catLabel(p.category)}</div>
+      <h2 class="post-card-title">${escHtml(p.title)}</h2>
+      <p class="post-card-excerpt">${escHtml(p.excerpt || p.content.slice(0,150))}</p>
+      <div class="post-card-foot">
+        <span class="post-card-date">${fmtDate(p.date)}</span>
+        <div class="post-card-tags">${(p.tags||[]).slice(0,2).map(t=>`<span class="tag">#${escHtml(t)}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+
+  // Pagination
+  const pag = document.getElementById('pagination');
+  if (totalPages <= 1) { pag.innerHTML = ''; return; }
+  let btns = '';
+  if (currentPage > 1) btns += `<button class="page-btn" onclick="goPage(${currentPage-1})">‹ Prev</button>`;
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 2)
+      btns += `<button class="page-btn${i===currentPage?' active':''}" onclick="goPage(${i})">${i}</button>`;
+    else if (Math.abs(i - currentPage) === 3)
+      btns += `<span style="padding:0.4rem 0.3rem;color:var(--muted)">…</span>`;
+  }
+  if (currentPage < totalPages) btns += `<button class="page-btn" onclick="goPage(${currentPage+1})">Next ›</button>`;
+  pag.innerHTML = btns;
+}
+
+function goPage(n) { currentPage = n; renderPosts(); window.scrollTo(0,0); }
+function filterPosts(cat, btn) {
+  currentFilter = cat; currentPage = 1;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPosts();
+}
+function searchPosts(q) { currentSearch = q; currentPage = 1; renderPosts(); }
+
+// ── SINGLE POST ────────────────────────────────────
+function openPost(idx) {
+  currentPostIdx = idx;
+  const p = filtered[idx];
+  if (!p) { showPage('home'); return; }
+  document.getElementById('sv-cat').textContent = catLabel(p.category);
+  document.getElementById('sv-title').textContent = p.title;
+  document.getElementById('sv-date').textContent = fmtDate(p.date);
+  document.getElementById('sv-body').innerHTML = mdToHtml(p.content);
+  document.getElementById('sv-tags').innerHTML = (p.tags||[]).map(t=>`<span class="tag">#${escHtml(t)}</span>`).join('');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  prevBtn.style.visibility = idx > 0 ? 'visible' : 'hidden';
+  nextBtn.style.visibility = idx < filtered.length - 1 ? 'visible' : 'hidden';
+  if (idx > 0) prevBtn.title = filtered[idx-1].title;
+  if (idx < filtered.length - 1) nextBtn.title = filtered[idx+1].title;
+}
+function navPost(dir) {
+  const newIdx = currentPostIdx + dir;
+  if (newIdx >= 0 && newIdx < filtered.length) { openPost(newIdx); window.scrollTo(0,0); }
+}
+
+// ── MARKDOWN RENDERER ──────────────────────────────
+function mdToHtml(md) {
+  if (!md) return '';
+  let html = escHtml(md);
+  // Unescape things we want to render
+  html = html
+    .replace(/&amp;#(\d+);/g, '&#$1;')
+    // headings
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h2 style="font-size:1.6rem">$1</h2>')
+    // bold/italic
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // blockquote
+    .replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>')
+    // images
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy">')
+    // links
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    // ul
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>
+?)+/g, m => '<ul>' + m + '</ul>')
+    // hr
+    .replace(/^---$/gm, '<hr>')
+    // paragraphs
+    .replace(/
+
++/g, '</p><p>')
+    .replace(/
+/g, '<br>');
+  return '<p>' + html + '</p>';
+}
+
+// ── EDITOR ─────────────────────────────────────────
+function switchTab(tab, btn) {
+  document.querySelectorAll('.editor-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const area = document.getElementById('e-area');
+  const prev = document.getElementById('e-preview');
+  const tb = document.querySelector('.editor-toolbar');
+  const cc = document.getElementById('char-count');
+  if (tab === 'write') {
+    area.style.display = 'block'; prev.classList.remove('active'); tb.style.display = 'flex'; cc.style.display = 'block';
+  } else {
+    area.style.display = 'none'; prev.classList.add('active'); tb.style.display = 'none'; cc.style.display = 'none';
+    prev.innerHTML = mdToHtml(area.value) || '<span style="color:var(--muted)">Nothing to preview…</span>';
+  }
+}
+function fmt(before, after) {
+  const ta = document.getElementById('e-area');
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.substring(s, e);
+  ta.value = ta.value.substring(0, s) + before + sel + after + ta.value.substring(e);
+  ta.focus(); ta.selectionStart = ta.selectionEnd = s + before.length + sel.length;
+  updateCharCount();
+}
+function updateCharCount() {
+  const len = document.getElementById('e-area').value.length;
+  document.getElementById('char-count').textContent = len + ' character' + (len !== 1 ? 's' : '');
+}
+
+function getFormData() {
+  return {
+    title: document.getElementById('e-title').value.trim(),
+    category: document.getElementById('e-category').value,
+    tags: document.getElementById('e-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    excerpt: document.getElementById('e-excerpt').value.trim(),
+    content: document.getElementById('e-area').value.trim(),
+    date: new Date().toISOString().split('T')[0]
+  };
+}
+function clearForm() {
+  ['e-title','e-area','e-excerpt'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('e-tags').value = 'theflowerofmountain';
+  updateCharCount();
+}
+
+function publishLocal() {
+  const f = getFormData();
+  if (!f.title || !f.content) { showStatus('e-status','error','Please add a title and content.'); return; }
+  const np = { id: Date.now(), ...f };
+  posts.unshift(np);
+  filtered = applyFilters();
+  savePosts();
+  clearForm();
+  showToast('✓ Post published! It now appears in your posts.');
+  showPage('home');
+}
+
+function saveDraft() {
+  const f = getFormData();
+  try {
+    sessionStorage.setItem('bukiphool_draft', JSON.stringify(f));
+    showStatus('e-status','success','✓ Draft saved to browser. It will restore if you come back.');
+  } catch(e) { showStatus('e-status','error','Could not save draft.'); }
+}
+
+// Restore draft on load
+function restoreDraft() {
+  try {
+    const d = JSON.parse(sessionStorage.getItem('bukiphool_draft') || 'null');
+    if (d && d.title) {
+      document.getElementById('e-title').value = d.title || '';
+      document.getElementById('e-area').value = d.content || '';
+      document.getElementById('e-excerpt').value = d.excerpt || '';
+      document.getElementById('e-tags').value = (d.tags||[]).join(', ');
+      if (d.category) document.getElementById('e-category').value = d.category;
+      updateCharCount();
+    }
+  } catch(e) {}
+}
+
+function generateMd(f) {
+  const tags = f.tags.map(t=>`  - ${t}`).join('
+');
+  return `---
+title: "${f.title}"
+date: ${f.date}T00:00:00+05:45
+draft: false
+categories:
+  - blogs
+  - ${f.category}
+tags:
+${tags}
+---
+
+${f.content}
+`;
+}
+function generateFilename(f) {
+  const slug = f.title.toLowerCase().replace(/[^\wऀ-ॿ]+/g,'-').replace(/(^-|-$)/g,'').slice(0,50);
+  return `content/post/${f.date}-${slug||'post'}.md`;
+}
+
+// ── GITHUB PUSH ────────────────────────────────────
+function openGhModal() {
+  const f = getFormData();
+  if (!f.title || !f.content) { showStatus('e-status','error','Please add a title and content first.'); return; }
+  document.getElementById('gh-modal').classList.add('active');
+}
+function closeGhModal() { document.getElementById('gh-modal').classList.remove('active'); }
+
+async function pushToGitHub() {
+  const token = document.getElementById('gh-token').value.trim();
+  const repo = document.getElementById('gh-repo').value.trim();
+  const branch = document.getElementById('gh-branch').value.trim() || 'main';
+  if (!token || !repo) { showStatus('gh-status','error','Token and repository are required.'); return; }
+  const f = getFormData();
+  const md = generateMd(f);
+  const path = generateFilename(f);
+  const encoded = btoa(unescape(encodeURIComponent(md)));
+  showStatus('gh-status','info','⏳ Connecting to GitHub…');
+  try {
+    let sha = null;
+    try {
+      const chk = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,
+        { headers:{ Authorization:`token ${token}`, Accept:'application/vnd.github.v3+json' }});
+      if (chk.ok) sha = (await chk.json()).sha;
+    } catch(e) {}
+    const body = { message:`Add post: ${f.title}`, content:encoded, branch };
+    if (sha) body.sha = sha;
+    const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+      method:'PUT',
+      headers:{ Authorization:`token ${token}`, 'Content-Type':'application/json', Accept:'application/vnd.github.v3+json' },
+      body: JSON.stringify(body)
+    });
+    if (res.ok) {
+      showStatus('gh-status','success',`✓ Pushed to ${path}! GitHub Pages will rebuild in ~1 minute.`);
+      const np = { id: Date.now(), ...f };
+      posts.unshift(np);
+      filtered = applyFilters();
+      savePosts();
+      showToast('✓ Post pushed to GitHub!');
+    } else {
+      const err = await res.json();
+      showStatus('gh-status','error',`GitHub error: ${err.message}`);
+    }
+  } catch(e) {
+    showStatus('gh-status','error',`Network error: ${e.message}`);
+  }
+}
+
+// ── HELPERS ────────────────────────────────────────
+function catLabel(c) {
+  return { poem:'Poem · कविता', blog:'Blog', haiku:'Haiku', thoughts:'Thoughts · विचार' }[c] || c;
+}
+function fmtDate(d) {
+  return new Date(d).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+}
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function showStatus(id, type, msg) {
+  const el = document.getElementById(id);
+  el.className = 'status-msg ' + type;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+function toggleMenu() { document.getElementById('nav-links').classList.toggle('open'); }
+function closeMenu() { document.getElementById('nav-links').classList.remove('open'); }
+
+// ── INIT ───────────────────────────────────────────
+showPage('home');
+restoreDraft();
+</script>
+</body>
+</html>
